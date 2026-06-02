@@ -8,3 +8,9 @@ npm-debug.log*
 Thumbs.db
 
 .claude/
+
+# Generated, content-hashed CSS (produced by npm run hash:css at build time).
+# The repo keeps the unhashed assets/css/styles.css so local dev + watch work;
+# Vercel's build (build:prod) hashes it and rewrites the deployed HTML.
+assets/css/styles.*.css
+!assets/css/styles.src.css

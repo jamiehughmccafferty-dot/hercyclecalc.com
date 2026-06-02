@@ -5,7 +5,9 @@
   "description": "Fertility, ovulation & pregnancy calculators, static site",
   "scripts": {
     "build:css": "tailwindcss -i ./assets/css/styles.src.css -o ./assets/css/styles.css --minify",
+    "hash:css": "node scripts/hash-css.js",
     "build:og": "node scripts/build-og.js",
+    "build:prod": "npm run build:css && npm run hash:css",
     "build": "npm run build:css && npm run build:og",
     "watch:css": "tailwindcss -i ./assets/css/styles.src.css -o ./assets/css/styles.css --watch",
     "serve": "http-server -p 8000 -c-1 --cors",

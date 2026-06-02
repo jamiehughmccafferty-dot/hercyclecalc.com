@@ -10,7 +10,7 @@
   X-Frame-Options: SAMEORIGIN
 
 # ─── Long-cache the build artefact (CSS is content-hashed on rebuild) ──
-/assets/css/styles.css
+/assets/css/*.css
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/js/*
