@@ -1,0 +1,21 @@
+{
+  "name": "HerCycleCalc, Fertility, Ovulation & Pregnancy Calculators",
+  "short_name": "HerCycleCalc",
+  "description": "Free, gentle fertility, ovulation, due-date and pregnancy calculators with week-by-week guidance.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#faf8fa",
+  "theme_color": "#c2336e",
+  "categories": ["health", "lifestyle", "utilities"],
+  "lang": "en-GB",
+  "icons": [
+    { "src": "/assets/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Due date calculator", "url": "/calculators/due-date.html" },
+    { "name": "Ovulation calculator", "url": "/calculators/ovulation.html" },
+    { "name": "Map out my pregnancy", "url": "/calculators/pregnancy-map.html" },
+    { "name": "Saved", "url": "/saved.html" }
+  ]
+}

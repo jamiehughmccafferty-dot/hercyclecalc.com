@@ -1,0 +1,29 @@
+# Cloudflare Pages redirects
+# Format: source destination [statusCode]
+#
+# DEFENSIVE BACKUP for Cloudflare Pages only.
+# Production runs on Vercel, see vercel.json ("cleanUrls": true, "trailingSlash": false).
+# Vercel IGNORES this file. Keep both in sync in case we ever flip hosts.
+
+# ─── Clean URLs (let people drop the .html) ─────────────────────────
+/calculators/due-date       /calculators/due-date.html       301
+/calculators/ovulation      /calculators/ovulation.html      301
+/calculators/conception     /calculators/conception.html     301
+/calculators/pregnancy-map  /calculators/pregnancy-map.html  301
+/calculators/early-years    /calculators/early-years.html    301
+/calculators/baby-shopping  /calculators/baby-shopping.html  301
+/about    /about.html    301
+/contact  /contact.html  301
+/faq      /faq.html      301
+/glossary /glossary.html 301
+/deals    /deals.html    301
+/saved    /saved.html    301
+/blog     /blog/         301
+
+# ─── Blog articles ──────────────────────────────────────────────────
+/blog/understanding-your-fertile-window  /blog/understanding-your-fertile-window.html  301
+/blog/trimester-by-trimester-guide       /blog/trimester-by-trimester-guide.html       301
+/blog/how-due-dates-are-calculated       /blog/how-due-dates-are-calculated.html       301
+
+# ─── Fallback for unknown paths ─────────────────────────────────────
+/*  /404.html  404

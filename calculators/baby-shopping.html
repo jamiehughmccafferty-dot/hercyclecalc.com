@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Baby Shopping Timeline, When to Buy What | HerCycleCalc</title>
+<meta name="description" content="A trimester-by-trimester baby shopping checklist built from your due date, so you buy the right things at the right time, without the panic or the overspend.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/baby-shopping.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Baby Shopping Timeline | when to buy what">
+<meta property="og:description" content="A trimester-by-trimester baby shopping checklist built from your due date, so you buy the right things at the right time.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/baby-shopping">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Shopping Timeline | when to buy what">
+<meta name="twitter:description" content="A trimester-by-trimester baby shopping checklist built from your due date, so you buy the right things at the right time.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Baby Shopping Timeline",
+      "item": "https://hercyclecalc.com/calculators/baby-shopping.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Baby Shopping Timeline",
+  "description": "A trimester-by-trimester baby shopping checklist built from your due date.",
+  "keywords": "baby shopping checklist, nesting, what to buy for baby",
+  "url": "https://hercyclecalc.com/calculators/baby-shopping.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="babyShoppingApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Baby Shopping Timeline</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Baby Shopping Timeline</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">No panic-buying, no overspending. Enter your due date and we'll show what to sort out and when, tick things off as you go.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your due date to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your due date</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="mode">I know my</label>
+            <select id="mode" class="hc-select" x-model="inp.mode" @change="calc()">
+              <option value="due">Due date</option>
+              <option value="lmp">First day of last period</option>
+            </select>
+          </div>
+          <div>
+            <label class="hc-label" for="date" x-text="inp.mode === 'due' ? 'Estimated due date' : 'First day of last period'"></label>
+            <input id="date" type="date" class="hc-input" x-model="inp.date" @input="calc()">
+          </div>
+        </div>
+      </div>
+
+      <div class="hc-card p-5 sm:p-6" x-show="result">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm font-semibold">Your checklist</span>
+          <span class="text-sm font-bold text-brand" x-text="checkedCount() + ' / ' + totalItems()"></span>
+        </div>
+        <div class="h-2 rounded-full bg-surface-3 overflow-hidden">
+          <div class="h-full bg-brand transition-all" :style="'width:' + (totalItems() ? (checkedCount()/totalItems()*100) : 0) + '%'"></div>
+        </div>
+        <button class="hc-btn hc-btn-ghost w-full mt-4 text-sm" @click="resetChecks()"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset checklist</button>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="result">
+        <div class="space-y-5">
+          <template x-for="(p, pi) in result.phases" :key="pi">
+            <div class="hc-card p-5 sm:p-6" :class="p.status === 'now' ? 'ring-2 ring-brand/30' : ''">
+              <div class="flex items-start justify-between gap-3 mb-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-display font-semibold text-lg text-ink" x-text="p.phase"></h3>
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded font-semibold"
+                          :class="{'bg-accent/15 text-accent-strong': p.status==='done','bg-brand/15 text-brand': p.status==='now','bg-surface-3 text-ink-muted': p.status==='upcoming'}"
+                          x-text="p.status === 'done' ? 'Covered' : (p.status === 'now' ? 'You\'re here' : 'From ' + HCF.fmtDayMonth(p.startDate))"></span>
+                  </div>
+                  <p class="text-sm text-ink-muted mt-0.5" x-text="p.sub + ' · weeks ' + p.fromWeek + '-' + p.toWeek"></p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="shopping-bag" class="w-5 h-5"></i></div>
+              </div>
+              <ul class="space-y-1.5">
+                <template x-for="(item, ii) in p.items" :key="ii">
+                  <li>
+                    <label class="flex items-center gap-3 py-1.5 px-2 -mx-2 rounded-lg hover:bg-surface-3 cursor-pointer transition-colors">
+                      <input type="checkbox" class="w-4 h-4 accent-[rgb(var(--brand))] flex-shrink-0" :checked="isChecked(item)" @change="toggle(item)">
+                      <span class="text-sm" :class="isChecked(item) ? 'line-through text-ink-muted' : 'text-ink-soft'" x-text="item"></span>
+                    </label>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </template>
+
+          <div x-html="resultPromptHTML"></div>
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+        </div>
+      </template>
+
+      <div id="hc-disclaimer"></div>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/baby-shopping.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function babyShoppingApp() {
+  function isoInWeeks(w) { const d = new Date(); d.setDate(d.getDate() + w * 7); return window.HCF.toISO(d); }
+  const EXAMPLE = { mode: 'due', date: isoInWeeks(12) }; // ~28 weeks pregnant
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    checked: new Set(),
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      this.checked = window.HCBabyShopping.readChecked();
+      const s = window.HCShare.readState(['mode', 'd']);
+      const has = Object.keys(s).length > 0;
+      if (s.mode) this.inp.mode = s.mode;
+      if (s.d) this.inp.date = s.d;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    isChecked(item) { return this.checked.has(item); },
+    toggle(item) {
+      if (this.checked.has(item)) this.checked.delete(item); else this.checked.add(item);
+      this.checked = new Set(this.checked);
+      window.HCBabyShopping.writeChecked(this.checked);
+    },
+    resetChecks() { this.checked = new Set(); window.HCBabyShopping.writeChecked(this.checked); },
+    totalItems() { return this.result ? this.result.phases.reduce((n, p) => n + p.items.length, 0) : 0; },
+    checkedCount() {
+      if (!this.result) return 0;
+      let n = 0;
+      this.result.phases.forEach(p => p.items.forEach(i => { if (this.checked.has(i)) n++; }));
+      return n;
+    },
+
+    calc() {
+      this.result = window.HCBabyShopping.compute(this.inp);
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      const nowPhase = this.result.phases.find(p => p.status === 'now') || this.result.phases[0];
+      this.resultPromptHTML = A.renderResultPrompt({ icon: '🛒', title: 'Ready to tick a few off? Here are some places to start.', sub: nowPhase.phase + ' essentials', cta: 'See picks', href: '../deals.html' });
+      this.comparisonHTML = A.renderComparisonTable({ category: nowPhase.category, title: 'Picks for ' + nowPhase.phase.toLowerCase(), subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: nowPhase.category, eyebrow: 'For this stage', headline: nowPhase.phase, body: 'A gentle starting point for what to buy next.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result;
+      return {
+        type: 'baby-shopping',
+        inputs: { ...this.inp },
+        shareParams: { mode: this.inp.mode, d: this.inp.date },
+        summary: {
+          calcLabel: 'Baby Shopping', icon: 'shopping-bag',
+          headline: this.checkedCount() + ' / ' + this.totalItems(), headlineLabel: 'Checklist progress',
+          secondary: window.HCF.fmtShort(r.edd), secondaryLabel: 'Due date',
+          meta: 'Week ' + r.currentWeek + ' · estimate',
+          rows: []
+        }
+      };
+    },
+    save()  { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

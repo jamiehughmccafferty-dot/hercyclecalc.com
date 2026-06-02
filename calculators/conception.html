@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Conception Date Calculator | HerCycleCalc</title>
+<meta name="description" content="Work backwards from a due date or your baby's birth date to estimate the likely conception date and window.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/conception.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Conception Date Calculator">
+<meta property="og:description" content="Work backwards from a due date or birth date to estimate the likely conception window and date.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/conception">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conception Date Calculator">
+<meta name="twitter:description" content="Work backwards from a due date or birth date to estimate the likely conception window and date.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Conception Calculator",
+      "item": "https://hercyclecalc.com/calculators/conception.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Conception Date Calculator",
+  "description": "Estimate the likely conception date and window from a due date or birth date.",
+  "keywords": "conception date calculator, conception window",
+  "url": "https://hercyclecalc.com/calculators/conception.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="conceptionApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Conception Calculator</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Conception Date Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">Curious when conception likely happened? Work backwards from a due date or your baby's birth date to estimate the date, and the window around it.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own date to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Work it out from…</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="mode">I know my</label>
+            <select id="mode" class="hc-select" x-model="inp.mode" @change="calc()">
+              <option value="due">Due date</option>
+              <option value="birth">Baby's birth date</option>
+            </select>
+          </div>
+          <div>
+            <label class="hc-label" for="date" x-text="inp.mode === 'due' ? 'Estimated due date' : 'Date baby was born'"></label>
+            <input id="date" type="date" class="hc-input" x-model="inp.date" @input="calc()">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="result">
+        <div class="space-y-5">
+          <div class="hc-card hc-card-accent p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Estimated conception date</div>
+            <div class="font-display text-4xl sm:text-5xl font-semibold text-brand leading-none" x-text="HCF.fmt(result.conception, { weekday:'long', day:'numeric', month:'long', year:'numeric' })"></div>
+            <p class="text-sm text-ink-soft mt-3">Conception most likely happened between
+              <strong class="text-ink" x-text="HCF.fmtDayMonth(result.windowStart)"></strong> and
+              <strong class="text-ink" x-text="HCF.fmtDayMonth(result.windowEnd)"></strong>.</p>
+            <div class="mt-4" x-html="resultPromptHTML"></div>
+          </div>
+
+          <div class="hc-card p-5 sm:p-6 overflow-x-auto">
+            <h3 class="font-semibold mb-3">The dates behind it</h3>
+            <table class="hc-table">
+              <tbody>
+                <tr><td x-text="result.mode === 'due' ? 'Due date you entered' : 'Birth date you entered'"></td><td x-text="HCF.fmtShort(result.anchor)"></td></tr>
+                <tr><td>Conception window opens</td><td x-text="HCF.fmtShort(result.windowStart)"></td></tr>
+                <tr><td><strong>Most likely conception</strong></td><td><strong x-text="HCF.fmtShort(result.conception)"></strong></td></tr>
+                <tr><td>Conception window closes</td><td x-text="HCF.fmtShort(result.windowEnd)"></td></tr>
+                <tr><td>Approx. last period before</td><td x-text="HCF.fmtShort(result.lmp)"></td></tr>
+              </tbody>
+            </table>
+            <p class="hc-help mt-3">This assumes a typical 40-week pregnancy. Conception is counted about two weeks after the last period, which is why the dates line up this way.</p>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+        </div>
+      </template>
+
+      <div class="hc-card p-5 sm:p-6">
+        <div class="flex items-center gap-2 text-xs font-semibold text-ink-muted uppercase tracking-wider mb-4"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Read more</div>
+        <a href="../blog/how-due-dates-are-calculated.html" class="block group">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="calendar-clock" class="w-4 h-4"></i></div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">How due dates are calculated</div>
+              <div class="text-sm text-ink-soft mt-0.5">The 280-day count and why conception sits two weeks in.</div>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+          </div>
+        </a>
+      </div>
+
+      <div id="hc-disclaimer"></div>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/conception.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function conceptionApp() {
+  function isoInDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return window.HCF.toISO(d); }
+  const EXAMPLE = { mode: 'due', date: isoInDays(150) };
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['mode', 'd']);
+      const has = Object.keys(s).length > 0;
+      if (s.mode) this.inp.mode = s.mode;
+      if (s.d) this.inp.date = s.d;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    calc() {
+      this.result = window.HCConception.compute(this.inp);
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      this.resultPromptHTML = A.renderResultPrompt({ icon: '📅', title: 'Want a full week-by-week pregnancy roadmap?', sub: 'Map every stage from your due date', cta: 'Open roadmap', href: 'pregnancy-map.html' });
+      this.comparisonHTML = A.renderComparisonTable({ category: 'pregnancy', title: 'Pregnancy picks', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: 'pregnancy', eyebrow: 'For pregnancy', headline: 'Pregnancy essentials', body: 'Gentle picks to support you through each trimester.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result;
+      return {
+        type: 'conception',
+        inputs: { ...this.inp },
+        shareParams: { mode: this.inp.mode, d: this.inp.date },
+        summary: {
+          calcLabel: 'Conception Calculator', icon: 'calendar-heart',
+          headline: window.HCF.fmtShort(r.conception), headlineLabel: 'Estimated conception',
+          secondary: window.HCF.fmtDayMonth(r.windowStart) + ', ' + window.HCF.fmtDayMonth(r.windowEnd), secondaryLabel: 'Conception window',
+          meta: 'Estimate based on a 40-week pregnancy',
+          rows: [
+            { label: 'From', value: (r.mode === 'due' ? 'Due ' : 'Born ') + window.HCF.fmtDayMonth(r.anchor) }
+          ]
+        }
+      };
+    },
+    save()  { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

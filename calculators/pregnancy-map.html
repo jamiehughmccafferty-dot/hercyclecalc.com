@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Map Out My Pregnancy, Week-by-Week Roadmap | HerCycleCalc</title>
+<meta name="description" content="Enter your due date for a personalised week-by-week pregnancy roadmap: what's happening with baby, your key NHS appointments and what to do at each stage.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/pregnancy-map.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Map Out My Pregnancy | week-by-week roadmap">
+<meta property="og:description" content="Enter your due date for a personalised week-by-week pregnancy roadmap: what is happening with baby, key appointments and what to do at each stage.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/pregnancy-map">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Map Out My Pregnancy | week-by-week roadmap">
+<meta name="twitter:description" content="Enter your due date for a personalised week-by-week pregnancy roadmap: what is happening with baby, key appointments and what to do at each stage.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Pregnancy Roadmap",
+      "item": "https://hercyclecalc.com/calculators/pregnancy-map.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Map Out My Pregnancy",
+  "description": "A personalised week-by-week pregnancy roadmap of baby development, appointments and what to do at each stage.",
+  "keywords": "pregnancy week by week, pregnancy roadmap, trimester guide",
+  "url": "https://hercyclecalc.com/calculators/pregnancy-map.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="pregnancyMapApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Map Out My Pregnancy</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Map Out My Pregnancy</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">Your whole pregnancy on one page. Enter your due date (or last period) and we'll lay out what's happening with baby, your key appointments and what to think about, week by week.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own date to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your pregnancy</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="mode">I know my</label>
+            <select id="mode" class="hc-select" x-model="inp.mode" @change="calc()">
+              <option value="due">Due date</option>
+              <option value="lmp">First day of last period</option>
+            </select>
+          </div>
+          <div>
+            <label class="hc-label" for="date" x-text="inp.mode === 'due' ? 'Estimated due date' : 'First day of last period'"></label>
+            <input id="date" type="date" class="hc-input" x-model="inp.date" @input="calc()">
+          </div>
+          <p class="hc-help">Don't know your due date? <a href="due-date.html" class="hc-inline-link">Work it out first</a>.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="result">
+        <div class="space-y-5">
+          <!-- Status -->
+          <div class="hc-card hc-card-accent p-6">
+            <template x-if="!result.beforePregnancy">
+              <div>
+                <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">You are</div>
+                <div class="font-display text-4xl font-semibold text-brand leading-none">
+                  <span x-text="result.currentWeek"></span> weeks <span class="text-2xl text-ink-soft" x-text="result.currentDay + ' days'"></span>
+                </div>
+                <div class="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                  <span class="hc-stage hc-stage-now">Trimester <span x-text="result.trimester"></span></span>
+                  <span class="text-ink-soft" x-text="(result.daysToGo >= 0 ? HCF.weeksAndDays(result.daysToGo).weeks + ' weeks to go' : 'past your due date')"></span>
+                </div>
+                <div class="mt-5">
+                  <div class="hc-cycle-bar">
+                    <div class="hc-cycle-seg" style="width:32.5%;background:rgb(var(--brand)/0.18)"></div>
+                    <div class="hc-cycle-seg" style="width:35%;background:rgb(var(--accent)/0.18)"></div>
+                    <div class="hc-cycle-seg" style="width:32.5%;background:rgb(251 191 36 / 0.20)"></div>
+                    <div class="hc-cycle-marker" :style="'left:' + result.progressPct + '%'"></div>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template x-if="result.beforePregnancy">
+              <div>
+                <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Your pregnancy begins</div>
+                <div class="font-display text-3xl font-semibold text-brand" x-text="HCF.fmtShort(result.lmp)"></div>
+                <p class="text-sm text-ink-soft mt-2">The roadmap below maps out every week from your last period to your due date on <strong x-text="HCF.fmtShort(result.edd)"></strong>.</p>
+              </div>
+            </template>
+          </div>
+
+          <!-- Week explorer -->
+          <div class="hc-card p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-semibold">Explore any week</h3>
+              <span class="hc-stage hc-stage-1 text-xs" x-text="'Week ' + viewWeek"></span>
+            </div>
+            <input type="range" min="4" max="40" step="1" class="hc-slider" x-model.number="viewWeek" @input="updateWeek()">
+            <div class="flex justify-between text-[0.65rem] text-ink-muted mt-1 mb-4"><span>4</span><span>20</span><span>40</span></div>
+            <template x-if="weekView">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="apple" class="w-6 h-6"></i></div>
+                <div>
+                  <div class="text-xs text-ink-muted" x-text="HCF.fmtDayMonth(weekView.start) + ', ' + HCF.fmtDayMonth(weekView.end) + ' · Trimester ' + weekView.trimester"></div>
+                  <h4 class="font-semibold mt-0.5">About the size of a <span class="text-brand" x-text="weekView.size.toLowerCase()"></span></h4>
+                  <p class="text-sm text-ink-soft mt-1" x-text="weekView.dev"></p>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Milestone roadmap -->
+          <div class="hc-card p-5 sm:p-6">
+            <h3 class="font-semibold mb-5">Your roadmap</h3>
+            <div class="hc-timeline">
+              <template x-for="(m, i) in result.milestones" :key="i">
+                <div class="hc-timeline-item" :data-now="m.status === 'now'" :data-done="m.status === 'done'">
+                  <span class="hc-timeline-dot"></span>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-ink-muted uppercase tracking-wide" x-text="'Week ' + m.week"></span>
+                    <span class="text-xs text-ink-muted" x-text="HCF.fmtDayMonth(m.date)"></span>
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded font-semibold"
+                          :class="{'bg-accent/15 text-accent-strong': m.status==='done','bg-brand/15 text-brand': m.status==='now','bg-surface-3 text-ink-muted': m.status==='upcoming'}"
+                          x-text="m.status === 'done' ? 'Done' : (m.status === 'now' ? 'This week' : badge(m.type))"></span>
+                  </div>
+                  <div class="font-semibold text-ink mt-0.5" x-text="m.title"></div>
+                  <p class="text-sm text-ink-soft mt-0.5" x-text="m.body"></p>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div x-html="resultPromptHTML"></div>
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+        </div>
+      </template>
+
+      <div class="hc-card p-5 sm:p-6">
+        <div class="flex items-center gap-2 text-xs font-semibold text-ink-muted uppercase tracking-wider mb-4"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Read more</div>
+        <a href="../blog/trimester-by-trimester-guide.html" class="block group">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center flex-shrink-0"><i data-lucide="baby" class="w-4 h-4"></i></div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">Trimester-by-trimester guide</div>
+              <div class="text-sm text-ink-soft mt-0.5">A deeper look at each stage of pregnancy.</div>
+            </div>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+          </div>
+        </a>
+      </div>
+
+      <div id="hc-disclaimer"></div>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/pregnancy-map.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function pregnancyMapApp() {
+  function isoInWeeks(w) { const d = new Date(); d.setDate(d.getDate() + w * 7); return window.HCF.toISO(d); }
+  const EXAMPLE = { mode: 'due', date: isoInWeeks(22) }; // ~18 weeks pregnant
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    viewWeek: 20,
+    weekView: null,
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['mode', 'd']);
+      const has = Object.keys(s).length > 0;
+      if (s.mode) this.inp.mode = s.mode;
+      if (s.d) this.inp.date = s.d;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+    badge(type) { return { appointment: 'Appointment', scan: 'Scan', development: 'Milestone', todo: 'To do' }[type] || ''; },
+
+    calc() {
+      this.result = window.HCPregnancyMap.compute(this.inp);
+      if (this.result) {
+        this.viewWeek = this.result.beforePregnancy ? 8 : Math.max(4, Math.min(40, this.result.currentWeek || 8));
+        this.updateWeek();
+      }
+      this.renderAffiliates();
+    },
+    updateWeek() {
+      if (!this.result) return;
+      this.weekView = window.HCPregnancyMap.weekDetail(this.result.lmp, this.viewWeek);
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      const t = this.result.trimester;
+      const cat = this.result.beforePregnancy ? 'pregnancy' : (t === 3 ? 'newborn' : (t === 2 ? 'nursery' : 'pregnancy'));
+      this.resultPromptHTML = A.renderResultPrompt({
+        icon: t === 3 ? '👶' : (t === 2 ? '🛍️' : '🤰'),
+        title: t === 3 ? 'Third trimester, start the nesting checklist.' : (t === 2 ? 'A great window to research the big buys.' : 'First trimester essentials to feel your best.'),
+        sub: 'See what to think about for this stage', cta: 'See picks', href: '../deals.html'
+      });
+      this.comparisonHTML = A.renderComparisonTable({ category: cat, title: 'Helpful picks for this stage', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: cat, eyebrow: 'For this stage', headline: 'Stage-by-stage picks', body: 'A gentle starting point for what you might need next.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result;
+      return {
+        type: 'pregnancy-map',
+        inputs: { ...this.inp },
+        shareParams: { mode: this.inp.mode, d: this.inp.date },
+        summary: {
+          calcLabel: 'My Pregnancy', icon: 'baby',
+          headline: r.beforePregnancy ? 'Week 0' : ('Week ' + r.currentWeek), headlineLabel: 'How far along',
+          secondary: window.HCF.fmtShort(r.edd), secondaryLabel: 'Due date',
+          meta: 'Trimester ' + r.trimester + ' · estimate',
+          rows: [
+            { label: 'Due date', value: window.HCF.fmtDayMonth(r.edd) },
+            { label: 'To go', value: r.daysToGo >= 0 ? (window.HCF.weeksAndDays(r.daysToGo).weeks + 'w') : 'due' }
+          ]
+        }
+      };
+    },
+    save()  { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Pregnancy & Baby Essentials, Hand-Picked | HerCycleCalc</title>
+<meta name="description" content="Hand-picked pregnancy, fertility and newborn essentials, grouped by stage. Affiliate links with full disclosure. Not medical advice.">
+<link rel="canonical" href="https://hercyclecalc.com/deals.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:title" content="Pregnancy & baby essentials | hand-picked picks">
+<meta property="og:description" content="Hand-picked pregnancy, fertility and newborn essentials. Affiliate links with full disclosure. Not medical advice.">
+<meta property="og:url" content="https://hercyclecalc.com/deals">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pregnancy & baby essentials | hand-picked picks">
+<meta name="twitter:description" content="Hand-picked pregnancy, fertility and newborn essentials. Affiliate links with full disclosure. Not medical advice.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span aria-current="page">Essentials</span></nav>
+  <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Essentials, by stage</h1>
+  <p class="mt-3 text-lg text-ink-soft max-w-2xl">A gentle starting point for what helps at each stage, from trying to conceive through to your newborn's first days. Hand-picked, clearly labelled, never pushy.</p>
+
+  <div class="hc-disclaimer mt-6"><strong>Heads up:</strong> these are general suggestions, not recommendations for your situation, and some links may earn us a commission. Nothing here is medical advice, always check with your midwife or GP.</div>
+
+  <section id="fertility" class="mt-10 scroll-mt-24">
+    <h2 class="font-display text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="flower-2" class="w-5 h-5 text-brand"></i> Trying to conceive</h2>
+    <div id="cat-fertility"></div>
+  </section>
+  <section id="pregnancy" class="mt-10 scroll-mt-24">
+    <h2 class="font-display text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="heart" class="w-5 h-5 text-brand"></i> Pregnancy</h2>
+    <div id="cat-pregnancy"></div>
+  </section>
+  <section id="nursery" class="mt-10 scroll-mt-24">
+    <h2 class="font-display text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="bed" class="w-5 h-5 text-brand"></i> Nursery &amp; big-ticket</h2>
+    <div id="cat-nursery"></div>
+  </section>
+  <section id="newborn" class="mt-10 scroll-mt-24">
+    <h2 class="font-display text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="baby" class="w-5 h-5 text-brand"></i> Newborn &amp; hospital bag</h2>
+    <div id="cat-newborn"></div>
+  </section>
+
+  <div class="mt-12" id="hc-trust"></div>
+</main>
+
+<div id="hc-footer"></div>
+
+<script src="assets/js/affiliates.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const A = window.HCAffiliates;
+  const map = {
+    fertility: { title: 'Preconception & fertility picks', subtitle: 'Supplements and ovulation tests' },
+    pregnancy: { title: 'Pregnancy comfort & care', subtitle: 'Vitamins, pillows and maternity basics' },
+    nursery:   { title: 'Nursery & travel', subtitle: 'The bigger buys, sort these in the third trimester' },
+    newborn:   { title: 'Newborn essentials', subtitle: 'Clothing, changing and the hospital bag' }
+  };
+  Object.entries(map).forEach(([cat, cfg]) => {
+    const el = document.getElementById('cat-' + cat);
+    if (el) el.innerHTML = A.renderComparisonTable({ category: cat, title: cfg.title, subtitle: cfg.subtitle, limit: 4 });
+  });
+  const tr = document.getElementById('hc-trust');
+  if (tr) tr.innerHTML = A.renderTrustStrip();
+  if (window.HC && window.HC.refreshIcons) window.HC.refreshIcons();
+});
+</script>
+</body>
+</html>

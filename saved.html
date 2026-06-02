@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Saved | HerCycleCalc</title>
+<meta name="description" content="Your saved dates and calculations, stored locally in your browser. Private, no account, no sync.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:title" content="Saved | HerCycleCalc">
+<meta property="og:description" content="Your saved dates and calculations, stored locally in your browser. Private, no account, no sync.">
+<meta property="og:url" content="https://hercyclecalc.com/saved">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Saved | HerCycleCalc">
+<meta name="twitter:description" content="Your saved dates and calculations, stored locally in your browser. Private, no account, no sync.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14" x-data="savedApp()" x-init="load()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span aria-current="page">Saved</span></nav>
+  <div class="flex items-end justify-between flex-wrap gap-3">
+    <div>
+      <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Saved</h1>
+      <p class="mt-2 text-ink-soft">Your saved results, kept privately on this device.</p>
+    </div>
+    <button class="hc-btn hc-btn-ghost text-sm" x-show="items.length" @click="clearAll()"><i data-lucide="trash-2" class="w-4 h-4"></i> Clear all</button>
+  </div>
+
+  <template x-if="!items.length">
+    <div class="hc-card p-10 text-center text-ink-soft mt-8">
+      <i data-lucide="bookmark" class="w-10 h-10 mx-auto text-brand mb-3"></i>
+      <p class="font-medium text-ink">Nothing saved yet</p>
+      <p class="text-sm mt-1">Use the <strong>Save</strong> button on any calculator and it'll appear here.</p>
+      <a href="calculators/due-date.html" class="hc-btn hc-btn-primary mt-5 inline-flex">Try the Due Date Calculator <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    </div>
+  </template>
+
+  <div class="grid sm:grid-cols-2 gap-4 mt-8">
+    <template x-for="it in items" :key="it.id">
+      <div class="hc-card p-5">
+        <div class="flex items-start gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i :data-lucide="(it.summary && it.summary.icon) || 'heart'" class="w-5 h-5"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-ink truncate" x-text="it.name"></div>
+            <div class="text-sm text-ink-soft" x-text="(it.summary && it.summary.headlineLabel) ? it.summary.headlineLabel + ': ' + it.summary.headline : ''"></div>
+            <div class="text-xs text-ink-muted mt-0.5" x-text="(it.summary && it.summary.meta) || ''"></div>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <a :href="openUrl(it)" class="hc-btn hc-btn-primary flex-1 text-sm"><i data-lucide="external-link" class="w-4 h-4"></i> Open</a>
+          <button class="hc-btn hc-btn-ghost text-sm" @click="rename(it)" aria-label="Rename"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+          <button class="hc-btn hc-btn-ghost text-sm" @click="remove(it)" aria-label="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <div class="mt-10"><div id="hc-disclaimer"></div></div>
+</main>
+
+<div id="hc-footer"></div>
+
+<script src="assets/js/format.js"></script>
+<script src="assets/js/share.js"></script>
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/save-share.js"></script>
+<script src="assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function savedApp() {
+  return {
+    items: [],
+    load() {
+      this.items = window.HCStorage.getAll();
+      this.$nextTick(() => window.HC && window.HC.refreshIcons && window.HC.refreshIcons());
+    },
+    openUrl(it) { return window.HCSaveShare.buildShareUrl(it.type, it.shareParams); },
+    rename(it) {
+      const name = prompt('Rename this saved result:', it.name);
+      if (name && name.trim()) { window.HCStorage.rename(it.id, name.trim()); this.load(); }
+    },
+    remove(it) {
+      if (confirm('Delete "' + it.name + '"?')) { window.HCStorage.remove(it.id); this.load(); }
+    },
+    clearAll() {
+      if (confirm('Delete all saved results? This cannot be undone.')) { window.HCStorage.clear(); this.load(); }
+    }
+  };
+}
+</script>
+</body>
+</html>

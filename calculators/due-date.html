@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Due Date Calculator, LMP, Conception or IVF | HerCycleCalc</title>
+<meta name="description" content="Estimate your due date from your last period, conception date or IVF transfer. See how many weeks pregnant you are today, your trimester and what's happening this week.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/due-date.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Due Date Calculator | LMP, conception or IVF">
+<meta property="og:description" content="Estimate your due date from your last period, conception date or IVF transfer. See how many weeks pregnant you are today and your trimester.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/due-date">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Due Date Calculator | LMP, conception or IVF">
+<meta name="twitter:description" content="Estimate your due date from your last period, conception date or IVF transfer. See how many weeks pregnant you are today and your trimester.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Due Date Calculator",
+      "item": "https://hercyclecalc.com/calculators/due-date.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Due Date Calculator",
+  "description": "Estimate your due date from your last period, conception date or IVF transfer, and see how many weeks pregnant you are.",
+  "keywords": "due date calculator, EDD, pregnancy weeks, LMP, IVF",
+  "url": "https://hercyclecalc.com/calculators/due-date.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="dueDateApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Due Date Calculator</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Due Date Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">Find your estimated due date and see exactly how far along you are today. Works from your last period, your conception date or an IVF transfer.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <!-- INPUTS -->
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own date to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your details</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="method">Calculate from</label>
+            <select id="method" class="hc-select" x-model="inp.method" @change="onMethodChange()">
+              <option value="lmp">First day of my last period</option>
+              <option value="conception">Conception / ovulation date</option>
+              <option value="ivf">IVF embryo transfer date</option>
+            </select>
+            <p class="hc-help" x-text="methodHelp()"></p>
+          </div>
+          <div>
+            <label class="hc-label" for="date" x-text="dateLabel()"></label>
+            <input id="date" type="date" class="hc-input" x-model="inp.date" @input="calc()">
+          </div>
+          <div x-show="inp.method === 'lmp'" x-cloak>
+            <label class="hc-label" for="cycle">Average cycle length</label>
+            <div class="flex items-center gap-3">
+              <input id="cycle" type="range" min="20" max="45" step="1" class="hc-slider" x-model.number="inp.cycleLength" @input="calc()">
+              <span class="text-sm font-semibold tabular w-16 text-right" x-text="inp.cycleLength + ' days'"></span>
+            </div>
+            <p class="hc-help">Most cycles are 28 days. A longer or shorter cycle shifts your due date.</p>
+          </div>
+          <div x-show="inp.method === 'ivf'" x-cloak>
+            <label class="hc-label" for="embryo">Embryo age at transfer</label>
+            <select id="embryo" class="hc-select" x-model.number="inp.embryoDay" @change="calc()">
+              <option :value="5">Day 5 (blastocyst)</option>
+              <option :value="3">Day 3 (cleavage)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="!result">
+        <div class="hc-card p-8 text-center text-ink-soft">
+          <i data-lucide="calendar-heart" class="w-10 h-10 mx-auto text-brand mb-3"></i>
+          <p>Enter a date to see your due date and how far along you are.</p>
+        </div>
+      </template>
+
+      <template x-if="result">
+        <div class="space-y-5">
+          <div class="hc-card hc-card-accent p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Estimated due date</div>
+            <div class="font-display text-4xl sm:text-5xl font-semibold text-brand leading-none" x-text="HCF.fmt(result.edd, { weekday:'long', day:'numeric', month:'long', year:'numeric' })"></div>
+
+            <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-brand/5">
+                <div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">How far along</div>
+                <div class="text-lg font-extrabold text-ink" x-text="result.beforePregnancy ? 'Not yet' : (result.weeks + 'w ' + result.days + 'd')"></div>
+              </div>
+              <div class="p-3 rounded-xl bg-accent/5">
+                <div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Trimester</div>
+                <div class="text-lg font-extrabold text-ink" x-text="result.beforePregnancy ? '-' : ('#' + result.trimester)"></div>
+              </div>
+              <div class="p-3 rounded-xl bg-brand/5">
+                <div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5" x-text="result.overdue ? 'Overdue by' : 'To go'"></div>
+                <div class="text-lg font-extrabold text-ink" x-text="daysToGoLabel()"></div>
+              </div>
+            </div>
+
+            <!-- Progress bar with trimester segments -->
+            <div class="mt-6" x-show="!result.beforePregnancy">
+              <div class="hc-cycle-bar" role="img" :aria-label="'You are about ' + Math.round(result.progressPct) + '% through pregnancy'">
+                <div class="hc-cycle-seg hc-stage-1" style="width:32.5%;background:rgb(var(--brand)/0.18)"></div>
+                <div class="hc-cycle-seg hc-stage-2" style="width:35%;background:rgb(var(--accent)/0.18)"></div>
+                <div class="hc-cycle-seg hc-stage-3" style="width:32.5%;background:rgb(251 191 36 / 0.20)"></div>
+                <div class="hc-cycle-marker" :style="'left:' + result.progressPct + '%'"></div>
+              </div>
+              <div class="flex justify-between text-[0.65rem] text-ink-muted mt-1.5">
+                <span>1st trimester</span><span>2nd</span><span>3rd</span>
+              </div>
+            </div>
+
+            <div class="mt-4" x-html="resultPromptHTML"></div>
+          </div>
+
+          <!-- This week -->
+          <div class="hc-card p-5 sm:p-6" x-show="!result.beforePregnancy">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
+                <i data-lucide="apple" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Week <span x-text="result.weekInfo.week"></span>: about the size of a <span class="text-brand" x-text="result.weekInfo.size.toLowerCase()"></span></h3>
+                <p class="text-sm text-ink-soft mt-1" x-text="result.weekInfo.dev"></p>
+              </div>
+            </div>
+            <a href="pregnancy-map.html" class="group inline-flex items-center mt-4 text-sm font-semibold text-brand hover:text-brand-strong">
+              See your full week-by-week roadmap
+              <i data-lucide="arrow-right" class="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+            </a>
+          </div>
+
+          <!-- Key dates -->
+          <div class="hc-card p-5 sm:p-6 overflow-x-auto">
+            <h3 class="font-semibold mb-3">Key dates</h3>
+            <table class="hc-table">
+              <tbody>
+                <tr><td>Estimated conception</td><td x-text="HCF.fmtShort(result.conception)"></td></tr>
+                <tr><td>End of first trimester (13 weeks)</td><td x-text="HCF.fmtShort(HCF.addDays(result.lmpDate, 13*7))"></td></tr>
+                <tr><td>Anomaly scan (around 20 weeks)</td><td x-text="HCF.fmtShort(HCF.addDays(result.lmpDate, 20*7))"></td></tr>
+                <tr><td>Third trimester begins (27 weeks)</td><td x-text="HCF.fmtShort(HCF.addDays(result.lmpDate, 27*7))"></td></tr>
+                <tr><td>Full term (37 weeks)</td><td x-text="HCF.fmtShort(HCF.addDays(result.lmpDate, 37*7))"></td></tr>
+                <tr><td><strong>Estimated due date (40 weeks)</strong></td><td><strong x-text="HCF.fmtShort(result.edd)"></strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+        </div>
+      </template>
+
+      <!-- Related guides -->
+      <div class="hc-card p-5 sm:p-6">
+        <div class="flex items-center gap-2 text-xs font-semibold text-ink-muted uppercase tracking-wider mb-4">
+          <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Read more
+        </div>
+        <div class="space-y-3">
+          <a href="../blog/how-due-dates-are-calculated.html" class="block group">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="calendar-clock" class="w-4 h-4"></i></div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">How due dates are calculated (and why they move)</div>
+                <div class="text-sm text-ink-soft mt-0.5">Naegele's rule, the 280-day count and dating scans, explained.</div>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+            </div>
+          </a>
+          <div class="border-t border-border"></div>
+          <a href="../blog/trimester-by-trimester-guide.html" class="block group">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center flex-shrink-0"><i data-lucide="baby" class="w-4 h-4"></i></div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">Trimester-by-trimester guide</div>
+                <div class="text-sm text-ink-soft mt-0.5">What happens in each stage from week 1 to birth.</div>
+              </div>
+              <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div id="hc-disclaimer"></div>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/due-date.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function dueDateApp() {
+  const EXAMPLE = { method: 'lmp', date: isoWeeksAgo(9), cycleLength: 28, embryoDay: 5 };
+  function isoWeeksAgo(w) { const d = new Date(); d.setDate(d.getDate() - w * 7); return window.HCF.toISO(d); }
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['m', 'd', 'c', 'e']);
+      const has = Object.keys(s).length > 0;
+      if (s.m) this.inp.method = s.m;
+      if (s.d) this.inp.date = s.d;
+      if (s.c) this.inp.cycleLength = +s.c;
+      if (s.e) this.inp.embryoDay = +s.e;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+    dateLabel() {
+      return { lmp: 'First day of your last period', conception: 'Conception / ovulation date', ivf: 'Date of embryo transfer' }[this.inp.method];
+    },
+    methodHelp() {
+      return {
+        lmp: 'The most common method, counts 40 weeks from your last period.',
+        conception: 'If you know when you ovulated or conceived.',
+        ivf: 'We count back from your transfer date using the embryo\'s age.'
+      }[this.inp.method];
+    },
+    onMethodChange() { this.calc(); },
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+    daysToGoLabel() {
+      if (!this.result) return '-';
+      const n = Math.abs(this.result.daysToGo);
+      const wd = window.HCF.weeksAndDays(n);
+      if (n === 0) return 'Today!';
+      if (n < 14) return n + (n === 1 ? ' day' : ' days');
+      return wd.weeks + 'w';
+    },
+
+    calc() {
+      this.result = window.HCDueDate.compute(this.inp);
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      const r = this.result;
+      let prompt;
+      if (r.beforePregnancy) {
+        prompt = { icon: '🌷', title: 'Planning ahead? Set yourself up for a healthy start.', sub: 'Preconception vitamins & folic acid', cta: 'See picks', href: '../deals.html#fertility' };
+      } else if (r.trimester === 1) {
+        prompt = { icon: '🤰', title: 'First trimester essentials to feel your best.', sub: 'Pregnancy multivitamins & comfort', cta: 'See picks', href: '../deals.html#pregnancy' };
+      } else if (r.trimester === 2) {
+        prompt = { icon: '🛍️', title: 'The comfy planning window, start researching the big buys.', sub: 'Pushchairs, pillows & maternity basics', cta: 'See picks', href: '../deals.html#pregnancy' };
+      } else {
+        prompt = { icon: '👶', title: 'Nearly there, time to pack the hospital bag.', sub: 'Newborn essentials & nappies', cta: 'See picks', href: '../deals.html#newborn' };
+      }
+      this.resultPromptHTML = A.renderResultPrompt(prompt);
+      const cat = r.beforePregnancy ? 'fertility' : (r.trimester === 3 ? 'newborn' : 'pregnancy');
+      this.comparisonHTML = A.renderComparisonTable({ category: cat, title: 'Helpful picks for this stage', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: cat, eyebrow: 'For this stage', headline: r.trimester === 3 ? 'Newborn essentials' : 'Pregnancy picks', body: 'A gentle starting point for what you might need next.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result;
+      return {
+        type: 'due-date',
+        inputs: { ...this.inp },
+        shareParams: { m: this.inp.method, d: this.inp.date, c: this.inp.cycleLength, e: this.inp.embryoDay },
+        summary: {
+          calcLabel: 'Due Date Calculator', icon: 'calendar-heart',
+          headline: window.HCF.fmtShort(r.edd), headlineLabel: 'Estimated due date',
+          secondary: r.beforePregnancy ? '-' : (r.weeks + 'w ' + r.days + 'd'), secondaryLabel: 'How far along',
+          meta: 'Estimate · always confirm with your midwife',
+          rows: [
+            { label: 'Conception', value: window.HCF.fmtDayMonth(r.conception) },
+            { label: 'Trimester', value: r.beforePregnancy ? '-' : ('#' + r.trimester) },
+            { label: 'Full term', value: window.HCF.fmtDayMonth(window.HCF.addDays(r.lmpDate, 37*7)) }
+          ]
+        }
+      };
+    },
+    save()  { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>
