@@ -258,6 +258,16 @@
   .hc-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .hc-input[type='number'] { -moz-appearance: textfield; }
 
+  /* Native date inputs - iOS centres the value and adds margins, which makes
+     the date float oddly in the box. Force left alignment and strip the
+     default chrome so date fields read like every other input. */
+  .hc-input[type='date'] { -webkit-appearance: none; appearance: none; }
+  .hc-input[type='date']::-webkit-date-and-time-value { text-align: left; margin: 0; }
+  .hc-input[type='date']::-webkit-datetime-edit { padding: 0; line-height: 1.25; }
+  .hc-input[type='date']::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; }
+  .hc-input[type='date']:hover::-webkit-calendar-picker-indicator { opacity: .85; }
+  .dark .hc-input[type='date']::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .5; }
+
   /* ===== Range slider ===== */
   .hc-slider {
     -webkit-appearance: none; appearance: none;
