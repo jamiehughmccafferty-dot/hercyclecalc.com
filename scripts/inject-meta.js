@@ -146,6 +146,20 @@ const FILES = [
     ogType: 'article'
   },
   {
+    file: 'blog/early-signs-of-pregnancy.html',
+    ogUrl: `${SITE}/blog/early-signs-of-pregnancy`,
+    ogTitle: 'Early signs of pregnancy: what\'s real and when to test',
+    ogDescription: 'Which early symptoms are common, why none of them are proof, when a test is reliable, and what to do next.',
+    ogType: 'article'
+  },
+  {
+    file: 'blog/hospital-bag-checklist.html',
+    ogUrl: `${SITE}/blog/hospital-bag-checklist`,
+    ogTitle: 'Hospital bag checklist: what to pack for labour (UK)',
+    ogDescription: 'When to pack, and what to bring for labour, for after the birth, for your baby and for your birth partner, without overpacking.',
+    ogType: 'article'
+  },
+  {
     file: 'blog/understanding-your-fertile-window.html',
     ogUrl: `${SITE}/blog/understanding-your-fertile-window`,
     ogTitle: 'Understanding your fertile window',
