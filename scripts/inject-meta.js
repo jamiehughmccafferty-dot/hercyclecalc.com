@@ -73,6 +73,24 @@ const FILES = [
     ogTitle: 'Fertility & pregnancy guides | HerCycleCalc',
     ogDescription: 'Gentle, evidence-informed guides on cycles, fertility, conception, pregnancy stages and the early years.'
   },
+  {
+    file: 'privacy.html',
+    ogUrl: `${SITE}/privacy`,
+    ogTitle: 'Privacy Policy | HerCycleCalc',
+    ogDescription: 'How HerCycleCalc handles your data: calculators run on your device, we do not store your inputs, and we use no tracking cookies.'
+  },
+  {
+    file: 'cookies.html',
+    ogUrl: `${SITE}/cookies`,
+    ogTitle: 'Cookie Policy | HerCycleCalc',
+    ogDescription: 'HerCycleCalc uses no tracking or advertising cookies. We use a little on-device storage for saved calculations and your theme.'
+  },
+  {
+    file: 'terms.html',
+    ogUrl: `${SITE}/terms`,
+    ogTitle: 'Terms of Service | HerCycleCalc',
+    ogDescription: 'The terms for using HerCycleCalc free calculators and content, including our not-medical-advice notice and limitation of liability.'
+  },
 
   // ─── Calculator pages ────────────────────────────────────────────────
   {

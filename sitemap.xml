@@ -16,4 +16,7 @@
   <url><loc>https://hercyclecalc.com/faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://hercyclecalc.com/glossary</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://hercyclecalc.com/deals</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hercyclecalc.com/privacy</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://hercyclecalc.com/cookies</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://hercyclecalc.com/terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>

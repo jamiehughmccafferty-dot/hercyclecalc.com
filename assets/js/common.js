@@ -135,8 +135,10 @@
         <ul class="space-y-2 text-sm">
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}about.html">About</a></li>
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}contact.html">Contact</a></li>
-          <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}about.html#privacy">Privacy</a></li>
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}about.html#editorial">Editorial Standards</a></li>
+          <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}privacy.html">Privacy Policy</a></li>
+          <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}cookies.html">Cookie Policy</a></li>
+          <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}terms.html">Terms of Service</a></li>
         </ul>
       </div>
     </div>
