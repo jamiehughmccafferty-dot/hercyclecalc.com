@@ -139,6 +139,13 @@ const FILES = [
     ogType: 'article'
   },
   {
+    file: 'blog/pregnancy-week-by-week.html',
+    ogUrl: `${SITE}/blog/pregnancy-week-by-week`,
+    ogTitle: 'Pregnancy week by week: a complete UK guide',
+    ogDescription: 'How pregnancy is counted, what happens each trimester, your NHS antenatal appointments, how to look after yourself, and the warning signs to never ignore.',
+    ogType: 'article'
+  },
+  {
     file: 'blog/understanding-your-fertile-window.html',
     ogUrl: `${SITE}/blog/understanding-your-fertile-window`,
     ogTitle: 'Understanding your fertile window',
