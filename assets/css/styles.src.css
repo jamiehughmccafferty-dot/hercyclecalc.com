@@ -557,11 +557,14 @@
 
   .hc-trust-strip {
     display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-    gap: 1.5rem; padding: 1.25rem; opacity: .8;
+    gap: 1rem; padding: 1.25rem; opacity: .85;
   }
   .hc-trust-strip-item {
     font-size: .76rem; font-weight: 600; color: rgb(var(--ink-muted));
-    display: inline-flex; align-items: center; gap: .4rem;
+    display: inline-flex; align-items: center; gap: 1rem;
+  }
+  .hc-trust-strip-item + .hc-trust-strip-item::before {
+    content: '·'; color: rgb(var(--ink-muted) / 0.55); font-weight: 400;
   }
 
   /* ============================================================

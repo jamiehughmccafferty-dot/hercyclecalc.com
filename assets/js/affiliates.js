@@ -194,10 +194,10 @@
   function renderTrustStrip() {
     return `
       <div class="hc-trust-strip">
-        <span class="hc-trust-strip-item">🌸 Gentle & judgement-free</span>
-        <span class="hc-trust-strip-item">🔒 No data stored</span>
-        <span class="hc-trust-strip-item">🇬🇧 UK based</span>
-        <span class="hc-trust-strip-item">📖 Evidence-informed</span>
+        <span class="hc-trust-strip-item">Gentle and judgement-free</span>
+        <span class="hc-trust-strip-item">No data stored</span>
+        <span class="hc-trust-strip-item">UK based</span>
+        <span class="hc-trust-strip-item">Evidence-informed</span>
       </div>`;
   }
 
