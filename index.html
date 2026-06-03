@@ -87,6 +87,20 @@
   }
 }
 </script>
+<script type="application/ld+json" data-hc-ld="faq">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "They give careful estimates from well-established methods and the dates you enter. They are not a substitute for medical advice, so your midwife or GP can confirm anything specific to you." } },
+    { "@type": "Question", "name": "Is my information private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Everything runs in your browser, we do not store the dates you enter and there is no account to create." } },
+    { "@type": "Question", "name": "How do I know when I am ovulating?", "acceptedAnswer": { "@type": "Answer", "text": "Ovulation usually falls about 14 days before your next period, with signs like clearer, stretchier cervical mucus. Our ovulation calculator estimates it for you." } },
+    { "@type": "Question", "name": "When should I take a pregnancy test?", "acceptedAnswer": { "@type": "Answer", "text": "From the first day of your missed period for the most reliable result. Testing earlier can give a false negative." } },
+    { "@type": "Question", "name": "How is my due date worked out?", "acceptedAnswer": { "@type": "Answer", "text": "It is counted as 40 weeks from your last period and refined by your dating scan, so treat it as the middle of a range." } },
+    { "@type": "Question", "name": "Does HerCycleCalc cost anything?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every calculator and guide is free, with no sign-up. Some product links may earn us a small commission, which keeps the site free and never changes what we suggest." } }
+  ]
+}
+</script>
 </head>
 <body class="font-sans">
 <a href="#main" class="hc-skip-link">Skip to content</a>
@@ -152,44 +166,103 @@
 </section>
 
 <main id="main">
-<!-- CALCULATORS -->
-<section id="calculators" class="py-18">
+<!-- STAGE: Trying to conceive -->
+<section id="calculators" class="py-16">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12 hc-reveal">
-      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink">All our calculators</h2>
-      <p class="mt-3 text-ink-soft">Trying, expecting or in the thick of the early years, there's a tool for where you are.</p>
+    <div class="mb-8 hc-reveal">
+      <span class="hc-stage hc-stage-2 text-xs inline-flex">Trying to conceive</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3">Find your fertile window</h2>
+      <p class="mt-2 text-ink-soft max-w-2xl">Work out when you are most fertile, plan around your cycle, and read up on what really helps.</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      <a href="calculators/due-date.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:40ms">
+    <div class="grid lg:grid-cols-3 gap-5">
+      <a href="calculators/ovulation.html" class="hc-card hc-card-interactive p-6 group hc-reveal">
+        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="flower-2" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Ovulation &amp; Fertility</h3>
+        <p class="text-sm text-ink-soft mt-1">Your fertile window, ovulation day and next few periods on a clear cycle view.</p>
+      </a>
+      <a href="calculators/conception.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:60ms">
+        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="calendar-clock" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Conception Date</h3>
+        <p class="text-sm text-ink-soft mt-1">Work backwards from a due date or birth date to the likely conception window.</p>
+      </a>
+      <div class="hc-card p-6 hc-reveal" style="--reveal-delay:120ms">
+        <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-muted mb-3"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Guides</div>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="blog/how-to-get-pregnant.html" class="text-ink-soft hover:text-brand transition-colors">How to get pregnant</a></li>
+          <li><a href="blog/understanding-your-fertile-window.html" class="text-ink-soft hover:text-brand transition-colors">Understanding your fertile window</a></li>
+          <li><a href="blog/irregular-periods-and-getting-pregnant.html" class="text-ink-soft hover:text-brand transition-colors">Irregular periods and getting pregnant</a></li>
+          <li><a href="blog/early-signs-of-pregnancy.html" class="text-ink-soft hover:text-brand transition-colors">Early signs of pregnancy</a></li>
+          <li><a href="blog/implantation-bleeding-vs-period.html" class="text-ink-soft hover:text-brand transition-colors">Implantation bleeding vs your period</a></li>
+        </ul>
+        <a href="deals.html#fertility" class="inline-flex items-center gap-1.5 mt-4 pt-4 border-t border-border text-sm font-semibold text-brand hover:text-brand-strong transition-colors">Preconception essentials <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE: Pregnancy -->
+<section class="py-16 bg-surface-3 border-y border-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 hc-reveal">
+      <span class="hc-stage hc-stage-1 text-xs inline-flex">Expecting</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3">Your pregnancy, week by week</h2>
+      <p class="mt-2 text-ink-soft max-w-2xl">Date your pregnancy, see what is happening at every stage, and know what to expect at each appointment.</p>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-5">
+      <a href="calculators/due-date.html" class="hc-card hc-card-interactive p-6 group hc-reveal">
         <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="calendar-heart" class="w-6 h-6"></i></div>
         <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Due Date</h3>
         <p class="text-sm text-ink-soft mt-1">From your last period, conception or IVF transfer, plus how far along you are.</p>
       </a>
-      <a href="calculators/ovulation.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:80ms">
-        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="flower-2" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Ovulation &amp; Fertility</h3>
-        <p class="text-sm text-ink-soft mt-1">Your fertile window, ovulation day and next few periods on a clear cycle view.</p>
-      </a>
-      <a href="calculators/conception.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:120ms">
-        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="calendar-clock" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Conception Date</h3>
-        <p class="text-sm text-ink-soft mt-1">Work backwards from a due date or birth date to the likely conception window.</p>
-      </a>
-      <a href="calculators/pregnancy-map.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:160ms">
+      <a href="calculators/pregnancy-map.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:60ms">
         <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="map" class="w-6 h-6"></i></div>
         <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Map Out My Pregnancy</h3>
         <p class="text-sm text-ink-soft mt-1">Your whole pregnancy, week by week, what's happening and what to do at each stage.</p>
       </a>
-      <a href="calculators/early-years.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:200ms">
-        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="baby" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Early Years</h3>
-        <p class="text-sm text-ink-soft mt-1">Your baby's exact age and a stage-by-stage milestone guide through the early years.</p>
-      </a>
-      <a href="calculators/baby-shopping.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:240ms">
-        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="shopping-bag" class="w-6 h-6"></i></div>
+      <div class="hc-card p-6 hc-reveal" style="--reveal-delay:120ms">
+        <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-muted mb-3"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Guides</div>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="blog/pregnancy-week-by-week.html" class="text-ink-soft hover:text-brand transition-colors">Pregnancy week by week</a></li>
+          <li><a href="blog/trimester-by-trimester-guide.html" class="text-ink-soft hover:text-brand transition-colors">Trimester-by-trimester guide</a></li>
+          <li><a href="blog/how-due-dates-are-calculated.html" class="text-ink-soft hover:text-brand transition-colors">How due dates are calculated</a></li>
+          <li><a href="blog/12-week-dating-scan.html" class="text-ink-soft hover:text-brand transition-colors">Your 12-week dating scan</a></li>
+          <li><a href="blog/morning-sickness-relief.html" class="text-ink-soft hover:text-brand transition-colors">Morning sickness: what helps</a></li>
+          <li><a href="blog/hospital-bag-checklist.html" class="text-ink-soft hover:text-brand transition-colors">Hospital bag checklist</a></li>
+        </ul>
+        <a href="deals.html#pregnancy" class="inline-flex items-center gap-1.5 mt-4 pt-4 border-t border-border text-sm font-semibold text-brand hover:text-brand-strong transition-colors">Pregnancy essentials <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE: Baby & early years -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 hc-reveal">
+      <span class="hc-stage hc-stage-3 text-xs inline-flex">Baby &amp; beyond</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mt-3">Getting ready, and the early years</h2>
+      <p class="mt-2 text-ink-soft max-w-2xl">Buy the right things at the right time, then track your baby's age and milestones as they grow.</p>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-5">
+      <a href="calculators/baby-shopping.html" class="hc-card hc-card-interactive p-6 group hc-reveal">
+        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="shopping-bag" class="w-6 h-6"></i></div>
         <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Baby Shopping Timeline</h3>
         <p class="text-sm text-ink-soft mt-1">What to buy and when, a tickable checklist built from your due date.</p>
       </a>
+      <a href="calculators/early-years.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:60ms">
+        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="baby" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Early Years</h3>
+        <p class="text-sm text-ink-soft mt-1">Your baby's exact age and a stage-by-stage milestone guide through the early years.</p>
+      </a>
+      <div class="hc-card p-6 hc-reveal" style="--reveal-delay:120ms">
+        <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-muted mb-3"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Getting ready</div>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="blog/hospital-bag-checklist.html" class="text-ink-soft hover:text-brand transition-colors">Hospital bag checklist</a></li>
+          <li><a href="blog/pregnancy-week-by-week.html" class="text-ink-soft hover:text-brand transition-colors">Pregnancy week by week</a></li>
+          <li><a href="blog/index.html" class="text-ink-soft hover:text-brand transition-colors">Browse all guides</a></li>
+        </ul>
+        <a href="deals.html#newborn" class="inline-flex items-center gap-1.5 mt-4 pt-4 border-t border-border text-sm font-semibold text-brand hover:text-brand-strong transition-colors">Newborn &amp; nursery essentials <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
     </div>
   </div>
 </section>
@@ -214,76 +287,70 @@
   </div>
 </section>
 
-<!-- FEATURED GUIDE -->
+<!-- FAQ -->
 <section class="py-16">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-end justify-between mb-8">
-      <div>
-        <h2 class="font-display text-3xl font-semibold">From our guides</h2>
-        <p class="text-sm text-ink-soft mt-2">Gentle, evidence-informed reads for every stage.</p>
-      </div>
-      <a href="blog/index.html" class="text-sm font-semibold text-brand hover:underline">All guides →</a>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10 hc-reveal">
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Common questions</h2>
+      <p class="mt-3 text-ink-soft">Quick answers, with links to the full guides.</p>
     </div>
-    <a href="blog/understanding-your-fertile-window.html" class="hc-feature-card hc-reveal">
-      <div class="hc-feature-card-inner">
-        <div class="hc-feature-graphic">
-          <div class="hc-feature-graphic-bg"></div>
-          <div class="hc-feature-blob hc-feature-blob-1"></div>
-          <div class="hc-feature-blob hc-feature-blob-2"></div>
-          <div class="hc-feature-grid-overlay"></div>
-          <div class="hc-feature-divider"></div>
-          <div class="relative h-full flex items-center justify-center p-8">
-            <div class="hc-cycle-bar w-full max-w-[220px]">
-              <div class="hc-cycle-seg hc-cycle-period" style="width:18%"></div>
-              <div class="hc-cycle-seg hc-cycle-plain" style="width:25%"></div>
-              <div class="hc-cycle-seg hc-cycle-fertile" style="width:18%"></div>
-              <div class="hc-cycle-seg hc-cycle-ovul" style="width:4%"></div>
-              <div class="hc-cycle-seg hc-cycle-fertile" style="width:4%"></div>
-              <div class="hc-cycle-seg hc-cycle-plain" style="width:31%"></div>
-            </div>
-          </div>
-        </div>
-        <div class="hc-feature-text">
-          <span class="hc-stage hc-stage-2 text-xs inline-flex">Fertility</span>
-          <h3 class="font-display text-2xl font-semibold text-ink mt-3 leading-snug">Understanding your fertile window</h3>
-          <p class="text-ink-soft mt-2 max-w-md">How ovulation, the fertile window and the luteal phase really work, and how to time things, whichever way you want them to go.</p>
-          <span class="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-brand">Read the guide <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
-        </div>
-      </div>
-    </a>
+    <div class="space-y-3">
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">How accurate are the calculators? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">They give careful estimates from well-established methods and the dates you enter. They are not a substitute for medical advice, so your midwife or GP can confirm anything specific to you. <a href="about.html" class="text-brand">More about how we build them</a>.</p>
+      </details>
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">Is my information private? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">Yes. Everything runs in your browser, we do not store the dates you enter and there is no account to create. <a href="privacy.html" class="text-brand">Read our privacy policy</a>.</p>
+      </details>
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">How do I know when I am ovulating? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">Ovulation usually falls about 14 days before your next period, with signs like clearer, stretchier cervical mucus. Our <a href="calculators/ovulation.html" class="text-brand">ovulation calculator</a> estimates it, and the <a href="blog/understanding-your-fertile-window.html" class="text-brand">fertile window guide</a> explains the signs.</p>
+      </details>
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">When should I take a pregnancy test? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">From the first day of your missed period for the most reliable result. Testing earlier can give a false negative. More in <a href="blog/early-signs-of-pregnancy.html" class="text-brand">early signs of pregnancy</a>.</p>
+      </details>
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">How is my due date worked out? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">It is counted as 40 weeks from your last period and refined by your dating scan, so treat it as the middle of a range. Try the <a href="calculators/due-date.html" class="text-brand">due date calculator</a> or read <a href="blog/how-due-dates-are-calculated.html" class="text-brand">how due dates are calculated</a>.</p>
+      </details>
+      <details class="hc-card hc-faq p-5 group hc-reveal">
+        <summary class="font-semibold text-ink flex items-center justify-between gap-3">Does it cost anything? <i data-lucide="chevron-down" class="hc-faq-ico w-4 h-4 text-ink-muted shrink-0"></i></summary>
+        <p class="text-sm text-ink-soft mt-3">No. Every calculator and guide is free, with no sign-up. Some product links may earn us a small commission, which keeps the site free and never changes what we suggest.</p>
+      </details>
+    </div>
+    <div class="text-center mt-8 hc-reveal"><a href="faq.html" class="text-sm font-semibold text-brand hover:underline">See all FAQs →</a></div>
   </div>
 </section>
 
-<!-- ESSENTIALS -->
-<section class="py-16 border-t border-border">
+<!-- EXPLORE -->
+<section class="py-16 bg-surface-3 border-y border-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-end justify-between mb-8">
-      <div>
-        <h2 class="font-display text-3xl font-semibold">Essentials for every stage</h2>
-        <p class="text-sm text-ink-soft mt-2">Hand-picked and clearly labelled, never pushy. Some links may earn us a commission.</p>
-      </div>
-      <a href="deals.html" class="text-sm font-semibold text-brand hover:underline">See all essentials →</a>
+    <div class="text-center mb-10 hc-reveal">
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink">More from HerCycleCalc</h2>
+      <p class="mt-3 text-ink-soft">Everything in one place, whenever you need it.</p>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <a href="deals.html#fertility" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:40ms">
-        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="flower-2" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Trying to conceive</h3>
-        <p class="text-sm text-ink-soft mt-1">Preconception vitamins and ovulation tests.</p>
+      <a href="blog/index.html" class="hc-card hc-card-interactive p-6 group hc-reveal">
+        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Guides</h3>
+        <p class="text-sm text-ink-soft mt-1">Plain-English reads on fertility, pregnancy and the early years.</p>
       </a>
-      <a href="deals.html#pregnancy" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:80ms">
-        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="heart" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Pregnancy</h3>
-        <p class="text-sm text-ink-soft mt-1">Vitamins, comfort and maternity basics.</p>
+      <a href="deals.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:60ms">
+        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="shopping-bag" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Essentials</h3>
+        <p class="text-sm text-ink-soft mt-1">Stage-by-stage picks, hand-picked and clearly labelled.</p>
       </a>
-      <a href="deals.html#nursery" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:120ms">
-        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="bed" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Nursery &amp; big-ticket</h3>
-        <p class="text-sm text-ink-soft mt-1">Pushchairs, cots and the bigger buys.</p>
+      <a href="glossary.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:120ms">
+        <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="book-marked" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Glossary</h3>
+        <p class="text-sm text-ink-soft mt-1">Fertility and pregnancy terms, explained simply.</p>
       </a>
-      <a href="deals.html#newborn" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:160ms">
-        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="baby" class="w-6 h-6"></i></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Newborn &amp; hospital bag</h3>
-        <p class="text-sm text-ink-soft mt-1">Clothing, changing and the first-days kit.</p>
+      <a href="about.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:180ms">
+        <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="heart-handshake" class="w-6 h-6"></i></div>
+        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">About &amp; contact</h3>
+        <p class="text-sm text-ink-soft mt-1">Who we are, our standards, and how to reach us.</p>
       </a>
     </div>
   </div>

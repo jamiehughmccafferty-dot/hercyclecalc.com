@@ -567,6 +567,12 @@
     content: '·'; color: rgb(var(--ink-muted) / 0.55); font-weight: 400;
   }
 
+  /* Homepage FAQ accordion */
+  details.hc-faq > summary { list-style: none; cursor: pointer; }
+  details.hc-faq > summary::-webkit-details-marker { display: none; }
+  .hc-faq-ico { transition: transform .2s var(--ease-out); }
+  details.hc-faq[open] .hc-faq-ico { transform: rotate(180deg); }
+
   /* ============================================================
    * SAVE / SHARE MODAL
    * ============================================================ */
