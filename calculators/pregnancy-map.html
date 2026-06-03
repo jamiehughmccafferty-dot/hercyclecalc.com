@@ -277,7 +277,7 @@ function pregnancyMapApp() {
       const t = this.result.trimester;
       const cat = this.result.beforePregnancy ? 'pregnancy' : (t === 3 ? 'newborn' : (t === 2 ? 'nursery' : 'pregnancy'));
       this.resultPromptHTML = A.renderResultPrompt({
-        icon: t === 3 ? 'baby' : (t === 2 ? 'shopping-bag' : 'heart-pulse'),
+        icon: t === 3 ? 'baby' : (t === 2 ? 'shopping-bag' : 'heart'),
         title: t === 3 ? 'Third trimester, start the nesting checklist.' : (t === 2 ? 'A great window to research the big buys.' : 'First trimester essentials to feel your best.'),
         sub: 'See what to think about for this stage', cta: 'See picks', href: '../deals.html'
       });
