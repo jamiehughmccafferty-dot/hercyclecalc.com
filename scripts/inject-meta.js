@@ -160,6 +160,34 @@ const FILES = [
     ogType: 'article'
   },
   {
+    file: 'blog/implantation-bleeding-vs-period.html',
+    ogUrl: `${SITE}/blog/implantation-bleeding-vs-period`,
+    ogTitle: 'Implantation bleeding vs your period: how to tell the difference',
+    ogDescription: 'The differences in timing, colour, flow and length, how common it is, and when spotting means you should call your GP.',
+    ogType: 'article'
+  },
+  {
+    file: 'blog/irregular-periods-and-getting-pregnant.html',
+    ogUrl: `${SITE}/blog/irregular-periods-and-getting-pregnant`,
+    ogTitle: 'Irregular periods and getting pregnant: a UK guide',
+    ogDescription: 'Why cycles vary, how to track ovulation when they do, and when to see your GP about trying to conceive.',
+    ogType: 'article'
+  },
+  {
+    file: 'blog/morning-sickness-relief.html',
+    ogUrl: `${SITE}/blog/morning-sickness-relief`,
+    ogTitle: 'Morning sickness: what helps and when to get advice',
+    ogDescription: 'Why it happens, what genuinely helps, what to avoid, and the signs of severe sickness that need medical help.',
+    ogType: 'article'
+  },
+  {
+    file: 'blog/12-week-dating-scan.html',
+    ogUrl: `${SITE}/blog/12-week-dating-scan`,
+    ogTitle: 'Your 12-week dating scan: what to expect',
+    ogDescription: 'What it checks, when it happens, how to prepare, the screening it offers, and why it can change your due date.',
+    ogType: 'article'
+  },
+  {
     file: 'blog/understanding-your-fertile-window.html',
     ogUrl: `${SITE}/blog/understanding-your-fertile-window`,
     ogTitle: 'Understanding your fertile window',
