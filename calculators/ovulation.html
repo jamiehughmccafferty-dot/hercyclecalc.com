@@ -272,8 +272,8 @@ function ovulationApp() {
       const A = window.HCAffiliates; if (!A || !this.result) return;
       const r = this.result;
       const prompt = r.inFertile
-        ? { icon: '🌸', title: 'You\'re in your fertile window now.', sub: 'Ovulation tests can confirm your surge', cta: 'See picks', href: '../deals.html#fertility' }
-        : { icon: '🌷', title: 'Trying to conceive? Give your body a head start.', sub: 'Preconception vitamins & ovulation tests', cta: 'See picks', href: '../deals.html#fertility' };
+        ? { icon: 'flower-2', title: 'You\'re in your fertile window now.', sub: 'Ovulation tests can confirm your surge', cta: 'See picks', href: '../deals.html#fertility' }
+        : { icon: 'sprout', title: 'Trying to conceive? Give your body a head start.', sub: 'Preconception vitamins & ovulation tests', cta: 'See picks', href: '../deals.html#fertility' };
       this.resultPromptHTML = A.renderResultPrompt(prompt);
       this.comparisonHTML = A.renderComparisonTable({ category: 'fertility', title: 'Helpful picks for trying to conceive', subtitle: 'Hand-picked · not medical advice', limit: 3 });
       this.stickyOfferHTML = A.renderStickyOffer({ category: 'fertility', eyebrow: 'Trying to conceive', headline: 'Fertility essentials', body: 'Preconception vitamins and ovulation tests to support your journey.', cta: 'See' });

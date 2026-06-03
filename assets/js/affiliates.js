@@ -107,10 +107,14 @@
 
   function escape(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
-  function renderResultPrompt({ icon = '🌸', title, sub, cta = 'See picks', href }) {
+  function renderResultPrompt({ icon = 'sparkles', title, sub, cta = 'See picks', href }) {
+    // Icons are injected dynamically, so schedule a Lucide re-render once the DOM updates.
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(() => { if (window.HC && window.HC.refreshIcons) window.HC.refreshIcons(); });
+    }
     return `
       <a href="${escape(href)}" rel="nofollow sponsored" class="hc-result-prompt no-underline" aria-label="${escape(title)}">
-        <span class="hc-result-prompt-icon" aria-hidden="true">${icon}</span>
+        <span class="hc-result-prompt-icon" aria-hidden="true"><i data-lucide="${escape(icon)}" class="w-5 h-5"></i></span>
         <span class="hc-result-prompt-body">
           <span class="hc-result-prompt-title">${escape(title)}</span>
           <span class="hc-result-prompt-sub">${escape(sub)} · <span class="hc-sponsored-tag" style="background:transparent;padding:0;text-transform:none;letter-spacing:0;font-size:.68rem;font-weight:500;">Sponsored</span></span>

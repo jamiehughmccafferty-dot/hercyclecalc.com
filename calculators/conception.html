@@ -212,7 +212,7 @@ function conceptionApp() {
 
     renderAffiliates() {
       const A = window.HCAffiliates; if (!A || !this.result) return;
-      this.resultPromptHTML = A.renderResultPrompt({ icon: '📅', title: 'Want a full week-by-week pregnancy roadmap?', sub: 'Map every stage from your due date', cta: 'Open roadmap', href: 'pregnancy-map.html' });
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'calendar-heart', title: 'Want a full week-by-week pregnancy roadmap?', sub: 'Map every stage from your due date', cta: 'Open roadmap', href: 'pregnancy-map.html' });
       this.comparisonHTML = A.renderComparisonTable({ category: 'pregnancy', title: 'Pregnancy picks', subtitle: 'Hand-picked · not medical advice', limit: 3 });
       this.stickyOfferHTML = A.renderStickyOffer({ category: 'pregnancy', eyebrow: 'For pregnancy', headline: 'Pregnancy essentials', body: 'Gentle picks to support you through each trimester.', cta: 'See' });
       this.trustHTML = A.renderTrustStrip();

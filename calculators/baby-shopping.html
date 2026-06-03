@@ -231,7 +231,7 @@ function babyShoppingApp() {
     renderAffiliates() {
       const A = window.HCAffiliates; if (!A || !this.result) return;
       const nowPhase = this.result.phases.find(p => p.status === 'now') || this.result.phases[0];
-      this.resultPromptHTML = A.renderResultPrompt({ icon: '🛒', title: 'Ready to tick a few off? Here are some places to start.', sub: nowPhase.phase + ' essentials', cta: 'See picks', href: '../deals.html' });
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'shopping-cart', title: 'Ready to tick a few off? Here are some places to start.', sub: nowPhase.phase + ' essentials', cta: 'See picks', href: '../deals.html' });
       this.comparisonHTML = A.renderComparisonTable({ category: nowPhase.category, title: 'Picks for ' + nowPhase.phase.toLowerCase(), subtitle: 'Hand-picked · not medical advice', limit: 3 });
       this.stickyOfferHTML = A.renderStickyOffer({ category: nowPhase.category, eyebrow: 'For this stage', headline: nowPhase.phase, body: 'A gentle starting point for what to buy next.', cta: 'See' });
       this.trustHTML = A.renderTrustStrip();

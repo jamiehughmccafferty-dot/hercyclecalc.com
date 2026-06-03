@@ -242,7 +242,7 @@ function earlyYearsApp() {
 
     renderAffiliates() {
       const A = window.HCAffiliates; if (!A || !this.result || this.result.notYet) { this.resultPromptHTML = this.comparisonHTML = this.stickyOfferHTML = this.trustHTML = ''; return; }
-      this.resultPromptHTML = A.renderResultPrompt({ icon: '🧸', title: 'Stage-appropriate essentials for right now.', sub: 'Clothing, feeding and play picks', cta: 'See picks', href: '../deals.html#newborn' });
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'blocks', title: 'Stage-appropriate essentials for right now.', sub: 'Clothing, feeding and play picks', cta: 'See picks', href: '../deals.html#newborn' });
       this.comparisonHTML = A.renderComparisonTable({ category: 'newborn', title: 'Picks for this stage', subtitle: 'Hand-picked · not medical advice', limit: 2 });
       this.stickyOfferHTML = A.renderStickyOffer({ category: 'newborn', eyebrow: 'For this stage', headline: 'Baby essentials', body: 'A gentle starting point for what helps at this age.', cta: 'See' });
       this.trustHTML = A.renderTrustStrip();
