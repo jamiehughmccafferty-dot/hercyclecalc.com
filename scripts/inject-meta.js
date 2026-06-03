@@ -132,6 +132,13 @@ const FILES = [
 
   // ─── Blog articles ────────────────────────────────────────────────────
   {
+    file: 'blog/how-to-get-pregnant.html',
+    ogUrl: `${SITE}/blog/how-to-get-pregnant`,
+    ogTitle: 'How to get pregnant: timing, your fertile window and best chances',
+    ogDescription: 'A warm, plain-English UK guide to getting pregnant: how conception works, finding your fertile window, how often to have sex, what helps, and when to see your GP.',
+    ogType: 'article'
+  },
+  {
     file: 'blog/understanding-your-fertile-window.html',
     ogUrl: `${SITE}/blog/understanding-your-fertile-window`,
     ogTitle: 'Understanding your fertile window',
