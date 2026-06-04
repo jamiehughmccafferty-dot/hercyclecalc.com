@@ -166,6 +166,45 @@
 </section>
 
 <main id="main">
+<!-- FEATURED CAROUSEL -->
+<section class="py-10 sm:py-12" aria-label="Featured" x-data="featuredCarousel()" x-init="init()" @mouseenter="pause()" @mouseleave="resume()" @focusin="pause()" @focusout="resume()">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative">
+      <div class="relative min-h-[380px] sm:min-h-[300px] md:min-h-[280px]">
+        <template x-for="(s,i) in slides" :key="i">
+          <a :href="s.href" x-show="active===i" x-cloak
+             x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+             class="group hc-card hc-card-accent hc-card-interactive no-underline block absolute inset-0 overflow-hidden">
+            <div class="flex flex-col md:flex-row-reverse h-full">
+              <div class="md:w-[42%] relative bg-gradient-to-br from-brand/15 to-accent/15 grid place-items-center min-h-[150px]">
+                <div class="hc-feature-grid-overlay"></div>
+                <i :data-lucide="s.icon" class="relative w-16 h-16 text-brand/55"></i>
+              </div>
+              <div class="md:w-[58%] p-6 sm:p-8 flex flex-col justify-center">
+                <span class="hc-stage text-xs inline-flex self-start" :class="s.tagClass" x-text="s.tag"></span>
+                <h3 class="font-display text-2xl sm:text-3xl font-semibold text-ink mt-3 leading-snug" x-text="s.title"></h3>
+                <p class="text-ink-soft mt-2 max-w-md" x-text="s.desc"></p>
+                <span class="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-brand"><span x-text="s.cta"></span> <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5"></i></span>
+              </div>
+            </div>
+          </a>
+        </template>
+      </div>
+
+      <button type="button" @click="prev(); start()" aria-label="Previous slide" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-border grid place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+      <button type="button" @click="next(); start()" aria-label="Next slide" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-border grid place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-5">
+      <template x-for="(s,i) in slides" :key="'dot'+i">
+        <button type="button" @click="go(i)" :aria-label="'Go to slide ' + (i+1)" :aria-current="active===i ? 'true' : 'false'"
+          class="h-2 rounded-full transition-all duration-300" :class="active===i ? 'w-6 bg-brand' : 'w-2 bg-border-strong hover:bg-ink-muted'"></button>
+      </template>
+    </div>
+  </div>
+</section>
+
 <!-- STAGE: Trying to conceive -->
 <section id="calculators" class="py-16">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -397,6 +436,31 @@
 <script src="assets/js/common.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
+function featuredCarousel() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return {
+    active: 0,
+    timer: null,
+    slides: [
+      { href: 'calculators/due-date.html',          icon: 'calendar-heart', tag: 'Most popular',       tagClass: 'hc-stage-1', title: 'When is your baby due?',     desc: 'Find your due date and how far along you are, from your last period, conception or IVF.', cta: 'Open the calculator' },
+      { href: 'blog/how-to-get-pregnant.html',       icon: 'sprout',         tag: 'Trying to conceive',  tagClass: 'hc-stage-2', title: 'How to get pregnant',        desc: 'Timing, your fertile window and what genuinely helps your chances.',                       cta: 'Read the guide' },
+      { href: 'blog/pregnancy-week-by-week.html',     icon: 'book-open',      tag: 'Expecting',           tagClass: 'hc-stage-1', title: 'Pregnancy week by week',     desc: 'What happens at every stage, your NHS appointments and what to expect.',                   cta: 'Read the guide' },
+      { href: 'calculators/pregnancy-map.html',       icon: 'map',            tag: 'Interactive',         tagClass: 'hc-stage-1', title: 'Map out my pregnancy',       desc: 'A personalised week-by-week roadmap built from your due date.',                            cta: 'Open the roadmap' },
+      { href: 'calculators/baby-shopping.html',       icon: 'shopping-bag',   tag: 'Get ready',           tagClass: 'hc-stage-3', title: 'Baby shopping timeline',     desc: 'What to buy and when, a tickable checklist built from your due date.',                     cta: 'Open the timeline' }
+    ],
+    init() {
+      this.$nextTick(() => { if (window.HC && window.HC.refreshIcons) window.HC.refreshIcons(); });
+      if (!reduced) this.start();
+    },
+    start() { this.stop(); if (!reduced) this.timer = setInterval(() => this.next(), 6500); },
+    stop() { if (this.timer) { clearInterval(this.timer); this.timer = null; } },
+    pause() { this.stop(); },
+    resume() { this.start(); },
+    next() { this.active = (this.active + 1) % this.slides.length; },
+    prev() { this.active = (this.active - 1 + this.slides.length) % this.slides.length; },
+    go(i) { this.active = i; this.start(); }
+  };
+}
 function sizeExplorer() {
   return {
     w: 20,
