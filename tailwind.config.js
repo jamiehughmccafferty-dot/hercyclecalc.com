@@ -20,7 +20,7 @@ module.exports = {
     /* ===== Type ===== */
     fontFamily: {
       sans:    ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-      display: ['"Fraunces"', 'Georgia', 'ui-serif', 'serif'],
+      display: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
       mono:    ['JetBrains Mono', 'SF Mono', 'ui-monospace', 'Menlo', 'monospace']
     },
 
