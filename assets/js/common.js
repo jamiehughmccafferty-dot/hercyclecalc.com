@@ -54,9 +54,9 @@
 <header data-vt="header" class="hc-no-print sticky top-0 z-40 bg-surface/85 backdrop-blur-md border-b border-border">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="header-inner flex items-center justify-between">
-      <a href="${ROOT}index.html" class="flex items-center gap-2.5 font-display font-semibold text-xl text-ink tracking-tight">
+      <a href="${ROOT}index.html" class="flex items-center gap-2 font-display font-semibold text-xl text-ink tracking-tight">
         ${LOGO_SVG}
-        Her<span class="hc-gradient-text">Cycle</span>Calc
+        HerCycleCalc
       </a>
       <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
         ${NAV.map(item => item.children
