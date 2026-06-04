@@ -217,10 +217,13 @@
       <p class="mt-2 text-ink-soft max-w-2xl">Work out when you are most fertile, plan around your cycle, and read up on what really helps.</p>
     </div>
     <div class="grid lg:grid-cols-3 gap-5">
-      <a href="calculators/ovulation.html" class="hc-card hc-card-interactive p-6 group hc-reveal">
-        <div class="w-14 h-14 rounded-2xl overflow-hidden mb-4"><img src="assets/img/icons/ovulation.jpg" alt="" class="w-full h-full object-cover" loading="lazy"></div>
-        <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Ovulation &amp; Fertility</h3>
-        <p class="text-sm text-ink-soft mt-1">Your fertile window, ovulation day and next few periods on a clear cycle view.</p>
+      <a href="calculators/ovulation.html" class="hc-card hc-card-interactive p-6 group hc-reveal relative overflow-hidden">
+        <img src="assets/img/cards/ovulation.jpg" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none">
+        <div class="relative">
+          <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center mb-4"><i data-lucide="flower-2" class="w-6 h-6"></i></div>
+          <h3 class="font-semibold text-lg text-ink group-hover:text-brand transition-colors">Ovulation &amp; Fertility</h3>
+          <p class="text-sm text-ink-soft mt-1">Your fertile window, ovulation day and next few periods on a clear cycle view.</p>
+        </div>
       </a>
       <a href="calculators/conception.html" class="hc-card hc-card-interactive p-6 group hc-reveal" style="--reveal-delay:60ms">
         <div class="w-11 h-11 rounded-2xl bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="calendar-clock" class="w-6 h-6"></i></div>
