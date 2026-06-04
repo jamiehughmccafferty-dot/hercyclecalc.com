@@ -232,6 +232,32 @@
         <a href="deals.html#pregnancy" class="inline-flex items-center gap-1.5 mt-4 pt-4 border-t border-border text-sm font-semibold text-brand hover:text-brand-strong transition-colors">Pregnancy essentials <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
       </div>
     </div>
+
+    <!-- Interactive size explorer -->
+    <div class="hc-card hc-card-accent p-5 sm:p-6 mt-5 hc-reveal" x-data="sizeExplorer()" x-init="init(20)">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Interactive</div>
+          <h3 class="font-display text-xl font-semibold text-ink">How big is your baby?</h3>
+        </div>
+        <span class="hc-stage hc-stage-1 text-xs" x-text="'Week ' + w + ' · ' + trimLabel"></span>
+      </div>
+      <div class="grid sm:grid-cols-[150px_1fr] gap-5 items-center">
+        <div class="grid place-items-center" style="height:140px">
+          <div class="rounded-full bg-gradient-to-br from-brand/15 to-accent/15 border border-border grid place-items-center transition-all duration-300 ease-out" :style="`width:${blob}px;height:${blob}px`">
+            <i data-lucide="baby" class="w-6 h-6 text-brand/70"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-lg font-semibold text-ink">About the size of a <span class="text-brand" x-text="info.size.toLowerCase()"></span></div>
+          <p class="text-sm text-ink-soft mt-1" x-text="info.dev"></p>
+          <label class="hc-label text-xs mt-4" for="home-week">Drag to explore each week</label>
+          <input id="home-week" type="range" min="4" max="40" step="1" class="hc-slider" x-model.number="w">
+          <div class="flex justify-between text-[0.65rem] text-ink-muted mt-1"><span>4 weeks</span><span>20</span><span>40 weeks</span></div>
+          <a href="calculators/due-date.html" class="group inline-flex items-center mt-4 text-sm font-semibold text-brand hover:text-brand-strong">Find your exact week <i data-lucide="arrow-right" class="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i></a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -371,6 +397,15 @@
 <script src="assets/js/common.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
+function sizeExplorer() {
+  return {
+    w: 20,
+    init(start) { const s = Math.round(+start); this.w = (s >= 4 && s <= 40) ? s : 20; },
+    get info() { return window.HC_DATA.weekInfo(this.w); },
+    get blob() { return Math.round(46 + (this.w - 4) / 36 * 90); },
+    get trimLabel() { const t = window.HC_DATA.trimester(this.w); return t === 1 ? '1st trimester' : (t === 2 ? '2nd trimester' : '3rd trimester'); }
+  };
+}
 function heroPreview() {
   function isoWeeksAgo(w) { const d = new Date(); d.setDate(d.getDate() - w * 7); return window.HCF.toISO(d); }
   return {
