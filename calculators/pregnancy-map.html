@@ -168,8 +168,10 @@
             <input type="range" min="4" max="40" step="1" class="hc-slider" x-model.number="viewWeek" @input="updateWeek()">
             <div class="flex justify-between text-[0.65rem] text-ink-muted mt-1 mb-4"><span>4</span><span>20</span><span>40</span></div>
             <template x-if="weekView">
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="apple" class="w-6 h-6"></i></div>
+              <div class="flex items-center gap-4">
+                <div class="shrink-0 grid place-items-center" style="width:116px;height:116px">
+                  <div class="rounded-full bg-gradient-to-br from-brand/15 to-accent/15 border border-border grid place-items-center transition-all duration-300 ease-out" :style="`width:${Math.round(40 + (viewWeek-4)/36*76)}px;height:${Math.round(40 + (viewWeek-4)/36*76)}px`"><i data-lucide="baby" class="w-5 h-5 text-brand/70"></i></div>
+                </div>
                 <div>
                   <div class="text-xs text-ink-muted" x-text="HCF.fmtDayMonth(weekView.start) + ', ' + HCF.fmtDayMonth(weekView.end) + ' · Trimester ' + weekView.trimester"></div>
                   <h4 class="font-semibold mt-0.5">About the size of a <span class="text-brand" x-text="weekView.size.toLowerCase()"></span></h4>

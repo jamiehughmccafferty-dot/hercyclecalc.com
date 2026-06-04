@@ -188,17 +188,26 @@
             <div class="mt-4" x-html="resultPromptHTML"></div>
           </div>
 
-          <!-- This week -->
-          <div class="hc-card p-5 sm:p-6" x-show="!result.beforePregnancy">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
-                <i data-lucide="apple" class="w-6 h-6"></i>
+          <!-- How big is your baby (interactive) -->
+          <div class="hc-card p-5 sm:p-6" x-show="!result.beforePregnancy" x-data="sizeExplorer()" x-init="init(result && result.weekInfo ? result.weekInfo.week : 12)">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-semibold">How big is your baby?</h3>
+              <span class="hc-stage hc-stage-1 text-xs" x-text="'Week ' + w + ' · ' + trimLabel"></span>
+            </div>
+            <div class="flex items-center gap-5">
+              <div class="shrink-0 grid place-items-center" style="width:136px;height:136px">
+                <div class="rounded-full bg-gradient-to-br from-brand/15 to-accent/15 border border-border grid place-items-center transition-all duration-300 ease-out" :style="`width:${blob}px;height:${blob}px`">
+                  <i data-lucide="baby" class="w-6 h-6 text-brand/70"></i>
+                </div>
               </div>
-              <div>
-                <h3 class="font-semibold">Week <span x-text="result.weekInfo.week"></span>: about the size of a <span class="text-brand" x-text="result.weekInfo.size.toLowerCase()"></span></h3>
-                <p class="text-sm text-ink-soft mt-1" x-text="result.weekInfo.dev"></p>
+              <div class="min-w-0">
+                <div class="text-lg font-semibold text-ink">About the size of a <span class="text-brand" x-text="info.size.toLowerCase()"></span></div>
+                <p class="text-sm text-ink-soft mt-1" x-text="info.dev"></p>
               </div>
             </div>
+            <label class="hc-label text-xs mt-5" for="dd-week">Drag to explore each week</label>
+            <input id="dd-week" type="range" min="4" max="40" step="1" class="hc-slider" x-model.number="w">
+            <div class="flex justify-between text-[0.65rem] text-ink-muted mt-1"><span>4 weeks</span><span>20</span><span>40 weeks</span></div>
             <a href="pregnancy-map.html" class="group inline-flex items-center mt-4 text-sm font-semibold text-brand hover:text-brand-strong">
               See your full week-by-week roadmap
               <i data-lucide="arrow-right" class="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
@@ -286,6 +295,15 @@
 <script src="../assets/js/common.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
+function sizeExplorer() {
+  return {
+    w: 12,
+    init(start) { const s = Math.round(+start); this.w = (s >= 4 && s <= 40) ? s : 12; },
+    get info() { return window.HC_DATA.weekInfo(this.w); },
+    get blob() { return Math.round(46 + (this.w - 4) / 36 * 90); },
+    get trimLabel() { const t = window.HC_DATA.trimester(this.w); return t === 1 ? '1st trimester' : (t === 2 ? '2nd trimester' : '3rd trimester'); }
+  };
+}
 function dueDateApp() {
   const EXAMPLE = { method: 'lmp', date: isoWeeksAgo(9), cycleLength: 28, embryoDay: 5 };
   function isoWeeksAgo(w) { const d = new Date(); d.setDate(d.getDate() - w * 7); return window.HCF.toISO(d); }
