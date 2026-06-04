@@ -117,10 +117,7 @@
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-22 lg:py-24">
     <div class="grid lg:grid-cols-5 gap-10 lg:gap-12 items-center">
       <div class="hc-reveal lg:col-span-3">
-        <h1 class="font-display text-display font-semibold text-ink leading-[1.05] text-balance">
-          Every stage,
-          <span class="hc-gradient-text">gently mapped&nbsp;out.</span>
-        </h1>
+        <h1 class="font-display text-display font-semibold leading-[0.95] text-balance hc-gradient-text">Every stage, gently mapped&nbsp;out.</h1>
         <p class="mt-6 text-lg text-ink-soft max-w-xl leading-relaxed">
           From your fertile window to your due date and beyond, clear, private calculators that meet you exactly where you are. No accounts, no judgement, no data stored.
         </p>
@@ -170,7 +167,7 @@
 <section class="py-10 sm:py-12" aria-label="Featured" x-data="featuredCarousel()" x-init="init()" @mouseenter="pause()" @mouseleave="resume()" @focusin="pause()" @focusout="resume()">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative">
-      <div class="relative min-h-[380px] sm:min-h-[300px] md:min-h-[280px]">
+      <div class="relative min-h-[380px] sm:min-h-[300px] md:min-h-[280px]" @touchstart.passive="touchStart($event)" @touchend.passive="touchEnd($event)">
         <template x-for="(s,i) in slides" :key="i">
           <a :href="s.href" x-show="active===i" x-cloak
              x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -197,8 +194,8 @@
         </template>
       </div>
 
-      <button type="button" @click="prev(); start()" aria-label="Previous slide" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-border grid place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
-      <button type="button" @click="next(); start()" aria-label="Next slide" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-border grid place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+      <button type="button" @click="prev(); start()" aria-label="Previous slide" class="hidden md:grid absolute -left-4 lg:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-sm border border-border place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+      <button type="button" @click="next(); start()" aria-label="Next slide" class="hidden md:grid absolute -right-4 lg:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-surface/90 backdrop-blur-sm border border-border place-items-center text-ink-soft hover:text-brand hover:border-brand/40 transition-colors shadow-sm"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
     </div>
 
     <div class="flex justify-center gap-2 mt-5">
@@ -463,7 +460,10 @@ function featuredCarousel() {
     resume() { this.start(); },
     next() { this.active = (this.active + 1) % this.slides.length; },
     prev() { this.active = (this.active - 1 + this.slides.length) % this.slides.length; },
-    go(i) { this.active = i; this.start(); }
+    go(i) { this.active = i; this.start(); },
+    touchX: 0,
+    touchStart(e) { this.touchX = e.changedTouches[0].clientX; },
+    touchEnd(e) { const dx = e.changedTouches[0].clientX - this.touchX; if (Math.abs(dx) > 40) { if (dx < 0) this.next(); else this.prev(); this.start(); } }
   };
 }
 function sizeExplorer() {
