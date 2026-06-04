@@ -167,12 +167,6 @@
       0 12px 32px -8px rgb(0 0 0 / 0.5),
       0 4px 12px -4px rgb(0 0 0 / 0.3);
   }
-  .hc-card-accent::before {
-    content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
-    border-radius: 20px 20px 0 0;
-    background: linear-gradient(90deg, rgb(var(--brand)), rgb(var(--accent)));
-  }
-
   /* ===== Buttons ===== */
   .hc-btn {
     display: inline-flex; align-items: center; justify-content: center;
@@ -774,11 +768,6 @@
       0 16px 40px -10px rgb(60 20 42 / 0.16),
       0 4px 12px -4px rgb(60 20 42 / 0.07);
     transform: translateY(-2px);
-  }
-  .hc-feature-card-inner::before {
-    content: ''; position: absolute; inset: 0 0 auto 0; height: 2px;
-    background: linear-gradient(90deg, rgb(var(--brand)), rgb(var(--accent)));
-    z-index: 1;
   }
   .hc-feature-graphic { position: absolute; top: 0; right: 0; bottom: 0; width: 45%; display: none; }
   @media (min-width: 768px) { .hc-feature-graphic { display: block; } }
