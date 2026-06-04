@@ -73,10 +73,6 @@
             </div>`
           : `<a href="${item.href}" class="px-3 py-2 text-sm font-medium text-ink-soft hover:text-brand transition-colors">${item.label}</a>`
         ).join('')}
-        <button id="hc-darkmode" type="button" class="ml-2 p-2 rounded-lg text-ink-soft hover:text-ink hover:bg-surface-3 transition-colors" aria-label="Switch to dark mode" aria-pressed="false">
-          <i data-lucide="moon" class="w-5 h-5 dark:hidden" aria-hidden="true"></i>
-          <i data-lucide="sun" class="w-5 h-5 hidden dark:block" aria-hidden="true"></i>
-        </button>
       </nav>
       <button id="hc-mobile-toggle" type="button" class="lg:hidden p-2 rounded-lg text-ink-soft hover:text-ink hover:bg-surface-3 transition-colors" aria-label="Open menu" aria-expanded="false" aria-controls="hc-mobile-menu">
         <i data-lucide="menu" class="w-6 h-6" aria-hidden="true"></i>
@@ -90,7 +86,6 @@
           </details>`
         : `<a href="${item.href}" class="block px-3 py-2 text-sm font-medium text-ink-soft hover:text-brand border-t border-border transition-colors">${item.label}</a>`
       ).join('')}
-      <button id="hc-darkmode-mobile" class="w-full text-left px-3 py-2 text-sm font-medium border-t border-border text-ink-soft hover:text-brand transition-colors">Toggle dark mode</button>
     </div>
   </div>
 </header>`;
@@ -158,31 +153,6 @@
 </div>`;
   }
 
-  function setupDarkMode() {
-    const stored = localStorage.getItem('hc-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = stored || (prefersDark ? 'dark' : 'light');
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-
-    function syncAria() {
-      const btn = document.getElementById('hc-darkmode');
-      if (!btn) return;
-      const isDark = document.documentElement.classList.contains('dark');
-      btn.setAttribute('aria-pressed', String(isDark));
-      btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-    }
-    syncAria();
-
-    function toggle() {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('hc-theme', isDark ? 'dark' : 'light');
-      syncAria();
-      window.dispatchEvent(new CustomEvent('hc:themechange', { detail: { isDark } }));
-    }
-    document.getElementById('hc-darkmode')?.addEventListener('click', toggle);
-    document.getElementById('hc-darkmode-mobile')?.addEventListener('click', toggle);
-  }
-
   function setupMobileMenu() {
     const btn = document.getElementById('hc-mobile-toggle');
     const menu = document.getElementById('hc-mobile-menu');
@@ -247,7 +217,6 @@
     if (headerSlot) headerSlot.outerHTML = navHTML();
     if (footerSlot) footerSlot.outerHTML = footerHTML();
     if (disclaimerSlot) disclaimerSlot.outerHTML = injectDisclaimerBar();
-    setupDarkMode();
     setupMobileMenu();
     setupTopBanner();
     setupHeaderScroll();
