@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Implantation Calculator: Window & When to Test | HerCycleCalc</title>
+<meta name="description" content="Estimate your implantation window from your ovulation date or last period: when the embryo is most likely to implant, when implantation bleeding might appear, and the earliest reliable day to test.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/implantation.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Implantation Calculator | window & timing">
+<meta property="og:description" content="Estimate your implantation window from your ovulation date, the most likely day, and when a pregnancy test could first show a result.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/implantation">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Implantation Calculator | window & timing">
+<meta name="twitter:description" content="Estimate your implantation window from your ovulation date, the most likely day, and when a pregnancy test could first show a result.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Implantation Calculator",
+      "item": "https://hercyclecalc.com/calculators/implantation.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Implantation Calculator",
+  "description": "Estimate your implantation window and most likely implantation day from your ovulation date.",
+  "keywords": "implantation calculator, implantation window, implantation timing",
+  "url": "https://hercyclecalc.com/calculators/implantation.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="implantationApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Implantation Calculator</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Implantation Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">Find your likely implantation window, the few days when a fertilised egg settles into the womb lining. We also show when any implantation spotting could appear and the earliest day a test becomes reliable.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own dates to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your dates</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="method">Work it out from</label>
+            <select id="method" class="hc-select" x-model="inp.method" @change="calc()">
+              <option value="ov">My ovulation date</option>
+              <option value="lmp">My last period (estimate ovulation)</option>
+            </select>
+          </div>
+          <div x-show="inp.method === 'ov'" x-cloak>
+            <label class="hc-label" for="ovdate">Ovulation date</label>
+            <input id="ovdate" type="date" class="hc-input" x-model="inp.ovDate" @input="calc()">
+            <p class="hc-help">From an OPK surge, a temperature rise or tracking.</p>
+          </div>
+          <template x-if="inp.method === 'lmp'">
+            <div class="space-y-4">
+              <div>
+                <label class="hc-label" for="lmpdate">First day of your last period</label>
+                <input id="lmpdate" type="date" class="hc-input" x-model="inp.lmpDate" @input="calc()">
+              </div>
+              <div>
+                <label class="hc-label" for="cycle">Average cycle length</label>
+                <div class="flex items-center gap-3">
+                  <input id="cycle" type="range" min="20" max="45" step="1" class="hc-slider" x-model.number="inp.cycleLength" @input="calc()">
+                  <span class="text-sm font-semibold tabular w-16 text-right" x-text="inp.cycleLength + ' days'"></span>
+                </div>
+                <p class="hc-help">We estimate ovulation as your cycle length minus 14 days.</p>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="!result">
+        <div class="hc-card p-8 text-center text-ink-soft">
+          <i data-lucide="target" class="w-10 h-10 mx-auto text-brand mb-3"></i>
+          <p>Enter a date to see your likely implantation window.</p>
+        </div>
+      </template>
+
+      <template x-if="result">
+        <div class="space-y-5">
+          <div class="hc-card p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Likely implantation window</div>
+            <div class="font-display text-3xl sm:text-4xl font-semibold text-brand leading-tight" x-text="HCF.fmtDayMonth(result.windowFrom) + ' to ' + HCF.fmtDayMonth(result.windowTo)"></div>
+            <p class="text-sm text-ink-soft mt-2">Most likely around <strong x-text="HCF.fmtShort(result.mostLikely)"></strong> (about 8 to 10 days after ovulation).</p>
+
+            <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Any spotting</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.windowFrom) + ' to ' + HCF.fmtDayMonth(result.windowTo)"></div></div>
+              <div class="p-3 rounded-xl bg-accent/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Earliest test</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.earliestTest)"></div></div>
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Period due</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.period)"></div></div>
+            </div>
+            <p class="text-xs text-ink-muted mt-3">Not everyone has implantation spotting, and its absence means nothing. A test is most reliable from your missed period (around <strong x-text="HCF.fmtDayMonth(result.reliableTest)"></strong>).</p>
+
+            <div class="mt-4" x-html="resultPromptHTML"></div>
+          </div>
+
+          <div class="hc-card p-5 sm:p-6">
+            <h3 class="font-semibold mb-5">How implantation unfolds</h3>
+            <div class="hc-timeline">
+              <template x-for="(m, i) in result.milestones" :key="i">
+                <div class="hc-timeline-item" :data-now="m.status === 'now'" :data-done="m.status === 'done'">
+                  <span class="hc-timeline-dot"></span>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-ink-muted uppercase tracking-wide" x-text="m.dpo + ' DPO'"></span>
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded font-semibold"
+                          :class="{'bg-accent/15 text-accent-strong': m.status==='done','bg-brand/15 text-brand': m.status==='now','bg-surface-3 text-ink-muted': m.status==='upcoming'}"
+                          x-text="m.status === 'done' ? 'Passed' : (m.status === 'now' ? 'Around now' : 'Ahead')"></span>
+                  </div>
+                  <div class="font-semibold text-ink mt-0.5" x-text="m.title"></div>
+                  <p class="text-sm text-ink-soft mt-0.5" x-text="m.body"></p>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+
+          <div class="hc-card p-5 sm:p-6">
+            <div class="flex items-center gap-2 text-xs font-semibold text-ink-muted uppercase tracking-wider mb-4"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Read more</div>
+            <div class="space-y-3">
+              <a href="../blog/implantation-bleeding-vs-period.html" class="block group">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="droplet" class="w-4 h-4"></i></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">Implantation bleeding vs your period</div>
+                    <div class="text-sm text-ink-soft mt-0.5">How to tell light early spotting from the start of your period.</div>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+                </div>
+              </a>
+              <div class="border-t border-border"></div>
+              <a href="../blog/early-signs-of-pregnancy.html" class="block group">
+                <div class="flex items-start gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center flex-shrink-0"><i data-lucide="heart" class="w-4 h-4"></i></div>
+                  <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-ink group-hover:text-brand transition-colors leading-snug">Early signs of pregnancy</div>
+                    <div class="text-sm text-ink-soft mt-0.5">Which symptoms are common, and when a test is reliable.</div>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-4 h-4 text-ink-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <a href="due-date.html" class="hc-card hc-card-interactive p-5 sm:p-6 group block no-underline">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-start gap-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="calendar-heart" class="w-5 h-5"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Next step</div>
+                  <div class="font-semibold text-lg text-ink group-hover:text-brand transition-colors leading-snug">Due Date Calculator</div>
+                  <div class="text-sm text-ink-soft mt-0.5">Got a positive test? Find your due date and how far along you are.</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-right" class="w-5 h-5 text-brand group-hover:translate-x-0.5 transition-transform flex-shrink-0"></i>
+            </div>
+          </a>
+
+          <div id="hc-disclaimer"></div>
+        </div>
+      </template>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function implantationApp() {
+  function isoDaysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return window.HCF.toISO(d); }
+  const EXAMPLE = { method: 'ov', ovDate: isoDaysAgo(7), lmpDate: isoDaysAgo(21), cycleLength: 28 };
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    get HCF() { return window.HCF; },
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['m', 'o', 'l', 'c']);
+      const has = Object.keys(s).length > 0;
+      if (s.m) this.inp.method = s.m;
+      if (s.o) this.inp.ovDate = s.o;
+      if (s.l) this.inp.lmpDate = s.l;
+      if (s.c) this.inp.cycleLength = +s.c;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    calc() {
+      const F = window.HCF, DD = window.HC_DATA;
+      let ov;
+      if (this.inp.method === 'lmp') {
+        const lmp = F.parseISO(this.inp.lmpDate);
+        if (!lmp) { this.result = null; return; }
+        const cyc = Math.max(20, Math.min(45, this.inp.cycleLength || 28));
+        ov = F.addDays(lmp, cyc - DD.LUTEAL_DEFAULT);
+      } else {
+        ov = F.parseISO(this.inp.ovDate);
+        if (!ov) { this.result = null; return; }
+      }
+      const today = F.today();
+      const dpo = F.diffDays(ov, today);
+      const M = [
+        { dpo: '1', lo: 1, hi: 1, title: 'Fertilisation', body: 'The egg is fertilised and a single cell begins to divide.' },
+        { dpo: '2-5', lo: 2, hi: 5, title: 'The blastocyst travels', body: 'The growing ball of cells moves down the tube towards the womb.' },
+        { dpo: '6-7', lo: 6, hi: 7, title: 'Implantation can begin', body: 'The blastocyst reaches the womb and may start to attach to the lining.' },
+        { dpo: '8-10', lo: 8, hi: 10, title: 'Most likely implantation', body: 'This is when implantation most often completes. Some notice light spotting.' },
+        { dpo: '11-12', lo: 11, hi: 12, title: 'Latest implantation', body: 'Implantation has usually happened by now, and hCG begins to rise.' },
+        { dpo: '12-14', lo: 12, hi: 14, title: 'Testing becomes reliable', body: 'A test from your missed period is the most reliable.' }
+      ];
+      M.forEach(m => { m.status = dpo > m.hi ? 'done' : (dpo >= m.lo ? 'now' : 'upcoming'); });
+      this.result = {
+        ov, dpo,
+        windowFrom: F.addDays(ov, 6), windowTo: F.addDays(ov, 12),
+        mostLikely: F.addDays(ov, 9),
+        earliestTest: F.addDays(ov, 11), reliableTest: F.addDays(ov, 14),
+        period: F.addDays(ov, DD.LUTEAL_DEFAULT),
+        dueDate: F.addDays(ov, DD.GESTATION_DAYS - 14),
+        milestones: M
+      };
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'flower-2', title: 'In the two-week wait? Early tests can help once hCG rises.', sub: 'Preconception vitamins & test kits', cta: 'See picks', href: '../deals.html#fertility' });
+      this.comparisonHTML = A.renderComparisonTable({ category: 'fertility', title: 'Helpful for trying to conceive', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: 'fertility', eyebrow: 'Trying to conceive', headline: 'Tests, OPKs & vitamins', body: 'A gentle starting point for the two-week wait.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result, F = window.HCF;
+      return {
+        type: 'implantation',
+        inputs: { ...this.inp },
+        shareParams: { m: this.inp.method, o: this.inp.ovDate, l: this.inp.lmpDate, c: this.inp.cycleLength },
+        summary: {
+          calcLabel: 'Implantation Calculator', icon: 'target',
+          headline: F.fmtDayMonth(r.windowFrom) + ' to ' + F.fmtDayMonth(r.windowTo), headlineLabel: 'Implantation window',
+          secondary: F.fmtShort(r.mostLikely), secondaryLabel: 'Most likely',
+          meta: 'Estimate · not medical advice',
+          rows: [
+            { label: 'Earliest test', value: F.fmtDayMonth(r.earliestTest) },
+            { label: 'Period due', value: F.fmtDayMonth(r.period) },
+            { label: 'If pregnant, due', value: F.fmtDayMonth(r.dueDate) }
+          ]
+        }
+      };
+    },
+    save() { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

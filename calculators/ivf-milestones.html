@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>IVF Milestones Calculator: Transfer to Due Date | HerCycleCalc</title>
+<meta name="description" content="Map your whole IVF timeline from embryo transfer or egg retrieval: implantation window, beta test dates, viability and dating scans, and your estimated due date.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/ivf-milestones.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="IVF Milestones Calculator | transfer to due date">
+<meta property="og:description" content="Map your IVF journey from egg retrieval or embryo transfer: beta test dates, viability scan, dating scan and your estimated due date.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/ivf-milestones">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IVF Milestones Calculator | transfer to due date">
+<meta name="twitter:description" content="Map your IVF journey from egg retrieval or embryo transfer: beta test dates, viability scan, dating scan and your estimated due date.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "IVF Milestones",
+      "item": "https://hercyclecalc.com/calculators/ivf-milestones.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "IVF Milestones Calculator",
+  "description": "Map IVF milestones from egg retrieval or embryo transfer through beta tests, scans and your estimated due date.",
+  "keywords": "ivf milestones, ivf timeline, embryo transfer, beta test, due date",
+  "url": "https://hercyclecalc.com/calculators/ivf-milestones.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="ivfApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">IVF Milestones</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">IVF Milestones Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">See your whole IVF timeline in one place. From your embryo transfer or egg retrieval, we map your implantation window, beta blood test dates, your early viability and dating scans, and your estimated due date.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own dates to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your cycle</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="anchor">Work it out from</label>
+            <select id="anchor" class="hc-select" x-model="inp.anchor" @change="calc()">
+              <option value="transfer">My embryo transfer date</option>
+              <option value="retrieval">My egg retrieval date</option>
+            </select>
+          </div>
+          <div>
+            <label class="hc-label" for="date" x-text="inp.anchor === 'retrieval' ? 'Egg retrieval date' : 'Embryo transfer date'"></label>
+            <input id="date" type="date" class="hc-input" x-model="inp.date" @input="calc()">
+          </div>
+          <div>
+            <label class="hc-label" for="embryo">Embryo age</label>
+            <select id="embryo" class="hc-select" x-model.number="inp.embryoDay" @change="calc()">
+              <option :value="5">Day 5 (blastocyst)</option>
+              <option :value="3">Day 3 (cleavage)</option>
+            </select>
+            <p class="hc-help">Most transfers are day-5 blastocysts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="!result">
+        <div class="hc-card p-8 text-center text-ink-soft">
+          <i data-lucide="route" class="w-10 h-10 mx-auto text-brand mb-3"></i>
+          <p>Enter your date to map your IVF milestones.</p>
+        </div>
+      </template>
+
+      <template x-if="result">
+        <div class="space-y-5">
+          <div class="hc-card p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Estimated due date</div>
+            <div class="font-display text-4xl sm:text-5xl font-semibold text-brand leading-none" x-text="HCF.fmtShort(result.edd)"></div>
+            <p class="text-sm text-ink-soft mt-2" x-text="result.gaText"></p>
+
+            <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">First beta (OTD)</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.beta1)"></div></div>
+              <div class="p-3 rounded-xl bg-accent/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Viability scan</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.viability)"></div></div>
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Dating scan</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.datingScan)"></div></div>
+            </div>
+
+            <div class="mt-4" x-html="resultPromptHTML"></div>
+          </div>
+
+          <div class="hc-card p-5 sm:p-6">
+            <h3 class="font-semibold mb-5">Your IVF timeline</h3>
+            <div class="hc-timeline">
+              <template x-for="(m, i) in result.milestones" :key="i">
+                <div class="hc-timeline-item" :data-now="m.status === 'now'" :data-done="m.status === 'done'">
+                  <span class="hc-timeline-dot"></span>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-ink-muted uppercase tracking-wide" x-text="m.dateLabel"></span>
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded font-semibold"
+                          :class="{'bg-accent/15 text-accent-strong': m.status==='done','bg-brand/15 text-brand': m.status==='now','bg-surface-3 text-ink-muted': m.status==='upcoming'}"
+                          x-text="m.status === 'done' ? 'Done' : (m.status === 'now' ? 'Around now' : 'Ahead')"></span>
+                  </div>
+                  <div class="font-semibold text-ink mt-0.5" x-text="m.title"></div>
+                  <p class="text-sm text-ink-soft mt-0.5" x-text="m.body"></p>
+                </div>
+              </template>
+            </div>
+            <p class="text-xs text-ink-muted mt-4">Scan and test timing vary between clinics, these are typical estimates. Always follow your own clinic's dates and advice.</p>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+
+          <a href="beta-hcg.html" class="hc-card hc-card-interactive p-5 sm:p-6 group block no-underline">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-start gap-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Next step</div>
+                  <div class="font-semibold text-lg text-ink group-hover:text-brand transition-colors leading-snug">Beta hCG Doubling Calculator</div>
+                  <div class="text-sm text-ink-soft mt-0.5">After your beta results, check the doubling time between two values.</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-right" class="w-5 h-5 text-brand group-hover:translate-x-0.5 transition-transform flex-shrink-0"></i>
+            </div>
+          </a>
+
+          <div id="hc-disclaimer"></div>
+        </div>
+      </template>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function ivfApp() {
+  function isoDaysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return window.HCF.toISO(d); }
+  const EXAMPLE = { anchor: 'transfer', date: isoDaysAgo(7), embryoDay: 5 };
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    get HCF() { return window.HCF; },
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['a', 'd', 'e']);
+      const has = Object.keys(s).length > 0;
+      if (s.a) this.inp.anchor = s.a;
+      if (s.d) this.inp.date = s.d;
+      if (s.e) this.inp.embryoDay = +s.e;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    calc() {
+      const F = window.HCF, DD = window.HC_DATA;
+      const date = F.parseISO(this.inp.date);
+      if (!date) { this.result = null; return; }
+      const eday = this.inp.embryoDay === 3 ? 3 : 5;
+      const conception = this.inp.anchor === 'retrieval' ? date : F.addDays(date, -eday);
+      const transfer = this.inp.anchor === 'retrieval' ? F.addDays(date, eday) : date;
+      const lmp = F.addDays(conception, -DD.LUTEAL_DEFAULT);
+      const edd = F.addDays(conception, DD.GESTATION_DAYS - DD.LUTEAL_DEFAULT);
+      const beta1 = F.addDays(transfer, eday === 5 ? 9 : 11);
+      const beta2 = F.addDays(beta1, 2);
+      const implantFrom = F.addDays(transfer, 1), implantTo = F.addDays(transfer, 5);
+      const viability = F.addDays(lmp, 49);
+      const datingScan = F.addDays(lmp, 84);
+      const today = F.today();
+
+      function mk(lo, hi, title, body) {
+        const status = F.diffDays(hi, today) < 0 ? 'done' : (F.diffDays(lo, today) <= 0 ? 'now' : 'upcoming');
+        const dateLabel = (lo === hi) ? F.fmtDayMonth(lo) : (F.fmtDayMonth(lo) + ' to ' + F.fmtDayMonth(hi));
+        return { lo, hi, title, body, status, dateLabel };
+      }
+      const milestones = [
+        mk(conception, conception, this.inp.anchor === 'retrieval' ? 'Egg retrieval' : 'Fertilisation (around retrieval)', 'Eggs are collected and fertilised in the lab to create your embryos.'),
+        mk(transfer, transfer, 'Embryo transfer', (eday === 5 ? 'A day-5 blastocyst' : 'A day-3 embryo') + ' is transferred to your womb.'),
+        mk(implantFrom, implantTo, 'Implantation window', 'The embryo settles into the womb lining over the next few days.'),
+        mk(beta1, beta1, 'First beta blood test', 'Your clinic measures hCG to check for a pregnancy (your official test day).'),
+        mk(beta2, beta2, 'Second beta', 'A repeat test to confirm hCG is rising well.'),
+        mk(viability, viability, 'Early viability scan (around 7 weeks)', 'A first scan to look for the heartbeat and confirm dating.'),
+        mk(datingScan, datingScan, 'Dating scan (around 12 weeks)', 'Confirms your due date and checks development.'),
+        mk(edd, edd, 'Estimated due date', 'Roughly 40 weeks from your last-period-equivalent date.')
+      ];
+
+      const ga = F.diffDays(lmp, today);
+      let gaText;
+      if (ga < 0) gaText = 'Your transfer is the start of the journey below.';
+      else { const wd = F.weeksAndDays(ga); gaText = 'Today you would be about ' + wd.weeks + ' weeks ' + wd.days + ' days.'; }
+
+      this.result = { conception, transfer, lmp, edd, beta1, beta2, implantFrom, implantTo, viability, datingScan, milestones, gaText };
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'heart', title: 'Early pregnancy care to support these weeks.', sub: 'Pregnancy vitamins & gentle essentials', cta: 'See picks', href: '../deals.html#pregnancy' });
+      this.comparisonHTML = A.renderComparisonTable({ category: 'pregnancy', title: 'Early pregnancy picks', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: 'pregnancy', eyebrow: 'Early pregnancy', headline: 'Pregnancy vitamins', body: 'Folic acid and vitamin D for the early weeks.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result, F = window.HCF;
+      return {
+        type: 'ivf-milestones',
+        inputs: { ...this.inp },
+        shareParams: { a: this.inp.anchor, d: this.inp.date, e: this.inp.embryoDay },
+        summary: {
+          calcLabel: 'IVF Milestones', icon: 'route',
+          headline: F.fmtShort(r.edd), headlineLabel: 'Estimated due date',
+          secondary: F.fmtDayMonth(r.beta1), secondaryLabel: 'First beta (OTD)',
+          meta: 'Estimate · follow your clinic',
+          rows: [
+            { label: 'Transfer', value: F.fmtDayMonth(r.transfer) },
+            { label: 'Viability scan', value: F.fmtDayMonth(r.viability) },
+            { label: 'Dating scan', value: F.fmtDayMonth(r.datingScan) }
+          ]
+        }
+      };
+    },
+    save() { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

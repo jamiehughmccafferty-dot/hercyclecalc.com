@@ -129,6 +129,36 @@ const FILES = [
     ogTitle: 'Baby Shopping Timeline | when to buy what',
     ogDescription: 'A trimester-by-trimester baby shopping checklist built from your due date, so you buy the right things at the right time.'
   },
+  {
+    file: 'calculators/dpo.html',
+    ogUrl: `${SITE}/calculators/dpo`,
+    ogTitle: 'DPO Calculator | days past ovulation & test timing',
+    ogDescription: 'Count your days past ovulation (DPO), see your implantation window, the earliest a test could turn positive and when your period is due.'
+  },
+  {
+    file: 'calculators/implantation.html',
+    ogUrl: `${SITE}/calculators/implantation`,
+    ogTitle: 'Implantation Calculator | window & timing',
+    ogDescription: 'Estimate your implantation window from your ovulation date, the most likely day, and when a pregnancy test could first show a result.'
+  },
+  {
+    file: 'calculators/trigger-shot.html',
+    ogUrl: `${SITE}/calculators/trigger-shot`,
+    ogTitle: 'Trigger Shot Calculator | hCG test-out timing',
+    ogDescription: 'Estimate how long an hCG trigger shot may take to clear from your system, so you can plan test-out timing for IVF or IUI. Your clinic beta is definitive.'
+  },
+  {
+    file: 'calculators/beta-hcg.html',
+    ogUrl: `${SITE}/calculators/beta-hcg`,
+    ogTitle: 'Beta hCG Doubling Calculator | rise & doubling time',
+    ogDescription: 'Enter two beta hCG results to see the doubling time and 48-hour rise. A maths tool for context, not a diagnosis, your clinic interprets your results.'
+  },
+  {
+    file: 'calculators/ivf-milestones.html',
+    ogUrl: `${SITE}/calculators/ivf-milestones`,
+    ogTitle: 'IVF Milestones Calculator | transfer to due date',
+    ogDescription: 'Map your IVF journey from egg retrieval or embryo transfer: beta test dates, viability scan, dating scan and your estimated due date.'
+  },
 
   // ─── Blog articles ────────────────────────────────────────────────────
   {

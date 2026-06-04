@@ -24,9 +24,14 @@
     { label: 'Home', href: ROOT + 'index.html' },
     {
       label: 'Calculators', children: [
-        { label: 'Due Date',            href: ROOT + 'calculators/due-date.html' },
         { label: 'Ovulation & Fertility', href: ROOT + 'calculators/ovulation.html' },
+        { label: 'DPO (Days Past Ovulation)', href: ROOT + 'calculators/dpo.html' },
+        { label: 'Implantation',        href: ROOT + 'calculators/implantation.html' },
         { label: 'Conception Date',     href: ROOT + 'calculators/conception.html' },
+        { label: 'Due Date',            href: ROOT + 'calculators/due-date.html' },
+        { label: 'Beta hCG Doubling',   href: ROOT + 'calculators/beta-hcg.html' },
+        { label: 'Trigger Shot Test-Out', href: ROOT + 'calculators/trigger-shot.html' },
+        { label: 'IVF Milestones',      href: ROOT + 'calculators/ivf-milestones.html' },
         { label: 'Map Out My Pregnancy', href: ROOT + 'calculators/pregnancy-map.html' },
         { label: 'Early Years',         href: ROOT + 'calculators/early-years.html' },
         { label: 'Baby Shopping',       href: ROOT + 'calculators/baby-shopping.html' }

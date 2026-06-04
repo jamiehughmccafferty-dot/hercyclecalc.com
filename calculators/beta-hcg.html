@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Beta hCG Doubling Calculator: Rise & Doubling Time | HerCycleCalc</title>
+<meta name="description" content="Enter two beta hCG results and times to work out your doubling time and 48-hour rise, with plain-English context on what is typical in early pregnancy. Not a substitute for your clinic.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/beta-hcg.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Beta hCG Doubling Calculator | rise & doubling time">
+<meta property="og:description" content="Enter two beta hCG results to see the doubling time and 48-hour rise. A maths tool for context, not a diagnosis, your clinic interprets your results.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/beta-hcg">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beta hCG Doubling Calculator | rise & doubling time">
+<meta name="twitter:description" content="Enter two beta hCG results to see the doubling time and 48-hour rise. A maths tool for context, not a diagnosis, your clinic interprets your results.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Beta hCG Calculator",
+      "item": "https://hercyclecalc.com/calculators/beta-hcg.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Beta hCG Doubling Calculator",
+  "description": "Calculate beta hCG doubling time and 48-hour rise from two results, for context not diagnosis.",
+  "keywords": "beta hcg calculator, hcg doubling time, hcg rise",
+  "url": "https://hercyclecalc.com/calculators/beta-hcg.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="betaApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Beta hCG Doubling</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Beta hCG Doubling Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">In early pregnancy, hCG usually rises steadily, often doubling every two to three days. Enter two beta blood test results with their dates and times to see your doubling time and 48-hour rise, with plain-English context.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own results to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">First test</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="b1">hCG result (mIU/mL)</label>
+            <input id="b1" type="number" min="1" max="500000" step="1" class="hc-input" x-model.number="inp.b1" @input="calc()">
+          </div>
+          <div>
+            <label class="hc-label" for="t1">Date &amp; time of first test</label>
+            <input id="t1" type="datetime-local" class="hc-input" x-model="inp.t1" @input="calc()">
+          </div>
+        </div>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Second test</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="b2">hCG result (mIU/mL)</label>
+            <input id="b2" type="number" min="1" max="500000" step="1" class="hc-input" x-model.number="inp.b2" @input="calc()">
+          </div>
+          <div>
+            <label class="hc-label" for="t2">Date &amp; time of second test</label>
+            <input id="t2" type="datetime-local" class="hc-input" x-model="inp.t2" @input="calc()">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <div class="hc-disclaimer"><strong>Important, not medical advice.</strong> This is a maths tool. hCG levels vary widely between healthy pregnancies, the rise naturally slows as levels climb, and a single pair of numbers cannot diagnose anything. Always interpret your results with your doctor or clinic.</div>
+
+      <template x-if="result && result.error">
+        <div class="hc-card p-6 text-ink-soft"><i data-lucide="alert-circle" class="w-5 h-5 inline -mt-1 text-warning"></i> <span x-text="result.error"></span></div>
+      </template>
+
+      <template x-if="result && !result.error">
+        <div class="space-y-5">
+          <div class="hc-card p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Doubling time</div>
+            <div class="font-display text-4xl sm:text-5xl font-semibold text-brand leading-none" x-text="result.doublingHours === null ? 'Not rising' : (Math.round(result.doublingHours) + ' h')"></div>
+            <p class="text-sm text-ink-soft mt-2" x-show="result.doublingHours !== null">That is roughly every <strong x-text="(result.doublingHours/24).toFixed(1) + ' days'"></strong>.</p>
+
+            <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Rise over 48h</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="result.rise48 === null ? '-' : ('+' + Math.round(result.rise48) + '%')"></div></div>
+              <div class="p-3 rounded-xl bg-accent/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Hours between</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="Math.round(result.hours)"></div></div>
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Overall change</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="result.b1 + ' → ' + result.b2"></div></div>
+            </div>
+          </div>
+
+          <div class="hc-card p-5 sm:p-6">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
+                   :class="{'bg-accent/15 text-accent-strong': result.status==='good','bg-amber-400/20 text-amber-700': result.status==='slow','bg-danger/15 text-danger': result.status==='concern'}">
+                <i :data-lucide="result.status==='good' ? 'check-circle-2' : (result.status==='concern' ? 'alert-triangle' : 'info')" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-ink" x-text="result.status==='good' ? 'Within the typical range' : (result.status==='concern' ? 'This needs review' : 'A little slower than typical')"></div>
+                <p class="text-sm text-ink-soft mt-1" x-text="result.message"></p>
+              </div>
+            </div>
+            <p class="text-xs text-ink-muted mt-4">As a rough guide, hCG often doubles every 48 to 72 hours early on. Doubling naturally slows once levels pass roughly 1,200 and again past 6,000 mIU/mL, so a slower rise at higher numbers can be perfectly normal. Your clinic interprets this alongside your scans and history.</p>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+
+          <a href="ivf-milestones.html" class="hc-card hc-card-interactive p-5 sm:p-6 group block no-underline">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-start gap-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="route" class="w-5 h-5"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Next step</div>
+                  <div class="font-semibold text-lg text-ink group-hover:text-brand transition-colors leading-snug">IVF Milestones Calculator</div>
+                  <div class="text-sm text-ink-soft mt-0.5">Map your scans and due date from your transfer or retrieval.</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-right" class="w-5 h-5 text-brand group-hover:translate-x-0.5 transition-transform flex-shrink-0"></i>
+            </div>
+          </a>
+
+          <div id="hc-disclaimer"></div>
+        </div>
+      </template>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function betaApp() {
+  function isoDateTimeAgo(daysAgo, hour) {
+    const d = new Date(); d.setDate(d.getDate() - daysAgo); d.setHours(hour, 0, 0, 0);
+    const p = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+  const EXAMPLE = { b1: 50, t1: isoDateTimeAgo(2, 9), b2: 120, t2: isoDateTimeAgo(0, 9) };
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    get HCF() { return window.HCF; },
+    comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['a', 'x', 'b', 'y']);
+      const has = Object.keys(s).length > 0;
+      if (s.a) this.inp.b1 = +s.a;
+      if (s.x) this.inp.t1 = s.x;
+      if (s.b) this.inp.b2 = +s.b;
+      if (s.y) this.inp.t2 = s.y;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    calc() {
+      const b1 = +this.inp.b1, b2 = +this.inp.b2;
+      const t1 = new Date(this.inp.t1), t2 = new Date(this.inp.t2);
+      if (!(b1 > 0) || !(b2 > 0) || isNaN(t1) || isNaN(t2)) { this.result = null; return; }
+      const hours = (t2 - t1) / 3600000;
+      if (hours <= 0) { this.result = { error: 'Your second test needs to be after the first.' }; return; }
+      const ratio = b2 / b1;
+      let doublingHours = null, rise48 = null, status, message;
+      if (ratio <= 1) {
+        status = 'concern';
+        message = 'Your hCG has not risen between these two tests. A falling or flat level needs review, please contact your clinic.';
+      } else {
+        doublingHours = hours * Math.log(2) / Math.log(ratio);
+        rise48 = (Math.pow(ratio, 48 / hours) - 1) * 100;
+        if (doublingHours <= 72) { status = 'good'; message = 'This sits within the typical early-pregnancy range, where hCG often doubles every 48 to 72 hours.'; }
+        else if (doublingHours <= 96) { status = 'slow'; message = 'This is a little slower than the usual 48 to 72 hours. Your clinic may want to repeat the test to see the trend.'; }
+        else { status = 'slow'; message = 'This is slower than the typical range. It can still be fine, especially at higher levels, but please discuss it with your clinic.'; }
+      }
+      this.result = { b1, b2, hours, ratio, doublingHours, rise48, status, message };
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result || this.result.error) return;
+      this.comparisonHTML = A.renderComparisonTable({ category: 'pregnancy', title: 'Early pregnancy picks', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: 'pregnancy', eyebrow: 'Early pregnancy', headline: 'Pregnancy vitamins', body: 'Folic acid and vitamin D for the early weeks.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result;
+      return {
+        type: 'beta-hcg',
+        inputs: { ...this.inp },
+        shareParams: { a: this.inp.b1, x: this.inp.t1, b: this.inp.b2, y: this.inp.t2 },
+        summary: {
+          calcLabel: 'Beta hCG Doubling', icon: 'activity',
+          headline: r.doublingHours === null ? 'Not rising' : (Math.round(r.doublingHours) + ' hours'), headlineLabel: 'Doubling time',
+          secondary: r.rise48 === null ? '-' : ('+' + Math.round(r.rise48) + '%'), secondaryLabel: '48-hour rise',
+          meta: 'Maths tool · not medical advice',
+          rows: [
+            { label: 'First', value: r.b1 + ' mIU/mL' },
+            { label: 'Second', value: r.b2 + ' mIU/mL' },
+            { label: 'Hours apart', value: String(Math.round(r.hours)) }
+          ]
+        }
+      };
+    },
+    save() { if (this.result && !this.result.error) window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { if (this.result && !this.result.error) window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>

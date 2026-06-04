@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="view-transition" content="same-origin">
+<title>Trigger Shot Test-Out Calculator (hCG Clearance) | HerCycleCalc</title>
+<meta name="description" content="Estimate when your hCG trigger shot (Ovitrelle, Pregnyl, Novarel) should clear your system, so you can test out and tell a true positive from leftover trigger. Day-by-day test-out timeline.">
+<link rel="canonical" href="https://hercyclecalc.com/calculators/trigger-shot.html">
+<meta name="theme-color" content="#c2336e">
+<!-- ===== Social + favicon + manifest (managed by scripts/inject-meta.js) ===== -->
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:title" content="Trigger Shot Calculator | hCG test-out timing">
+<meta property="og:description" content="Estimate how long an hCG trigger shot may take to clear from your system, so you can plan test-out timing for IVF or IUI. Your clinic beta is definitive.">
+<meta property="og:url" content="https://hercyclecalc.com/calculators/trigger-shot">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://hercyclecalc.com/assets/og/site.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trigger Shot Calculator | hCG test-out timing">
+<meta name="twitter:description" content="Estimate how long an hCG trigger shot may take to clear from your system, so you can plan test-out timing for IVF or IUI. Your clinic beta is definitive.">
+<meta name="twitter:image" content="https://hercyclecalc.com/assets/og/site.png">
+<!-- ===== end social block ===== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<script type="application/ld+json" data-hc-ld="breadcrumb">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://hercyclecalc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Calculators",
+      "item": "https://hercyclecalc.com/#calculators"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Trigger Shot Calculator",
+      "item": "https://hercyclecalc.com/calculators/trigger-shot.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-hc-ld="webapp">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Trigger Shot Calculator",
+  "description": "Estimate how long an hCG trigger shot may take to clear, to help plan test-out timing for IVF or IUI.",
+  "keywords": "trigger shot calculator, hcg trigger, test out, ovitrelle",
+  "url": "https://hercyclecalc.com/calculators/trigger-shot.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "inLanguage": "en-GB",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP"
+  },
+  "publisher": {
+    "@id": "https://hercyclecalc.com#organization"
+  },
+  "image": "https://hercyclecalc.com/assets/og/site.png"
+}
+</script>
+</head>
+<body class="font-sans">
+<a href="#main" class="hc-skip-link">Skip to content</a>
+<div id="hc-top-banner-slot"></div>
+<div id="hc-header"></div>
+
+<main id="main" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12" x-data="triggerApp()" x-init="init()">
+  <nav class="hc-breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Trigger Shot Test-Out</span></nav>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Trigger Shot Test-Out Calculator</h1>
+    <p class="mt-2 text-ink-soft max-w-3xl">An hCG trigger shot (like Ovitrelle, Pregnyl or Novarel) can show up on a home pregnancy test for days afterwards. "Testing out" means testing daily until the trigger fades to negative, so a later positive is more likely to be real. This estimates when your trigger should clear.</p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <section class="lg:col-span-2 space-y-5 hc-no-print">
+      <div x-show="isExample" x-cloak class="hc-example-banner">
+        <svg class="hc-example-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span class="hc-example-banner-text"><strong>Showing an example.</strong> Enter your own details to personalise it.</span>
+      </div>
+      <div class="hc-card p-5 sm:p-6">
+        <h2 class="font-semibold text-lg mb-4">Your trigger</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="hc-label" for="tdate">Trigger shot date</label>
+            <input id="tdate" type="date" class="hc-input" x-model="inp.triggerDate" @input="calc()">
+          </div>
+          <div>
+            <label class="hc-label" for="dose">Trigger type / dose</label>
+            <select id="dose" class="hc-select" x-model="inp.dose" @change="calc()">
+              <option value="6500">Ovitrelle / Ovidrel (250 mcg)</option>
+              <option value="5000">Pregnyl / Novarel (5,000 IU)</option>
+              <option value="10000">Pregnyl / Novarel (10,000 IU)</option>
+              <option value="custom">Other amount (enter IU)</option>
+            </select>
+            <p class="hc-help">250 micrograms of Ovitrelle is roughly 6,500 IU of hCG.</p>
+          </div>
+          <div x-show="inp.dose === 'custom'" x-cloak>
+            <label class="hc-label" for="iu">Dose in IU</label>
+            <div class="relative"><input id="iu" type="number" min="500" max="20000" step="250" class="hc-input pr-10" x-model.number="inp.customIU" @input="calc()"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted text-sm">IU</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="hc-btn hc-btn-primary" @click="save()"><i data-lucide="bookmark" class="w-4 h-4"></i> Save</button>
+        <button class="hc-btn hc-btn-ghost" @click="share()"><i data-lucide="share-2" class="w-4 h-4"></i> Share</button>
+        <button class="hc-btn hc-btn-ghost" @click="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Print</button>
+        <button class="hc-btn hc-btn-ghost" @click="loadExample()"><i data-lucide="sparkles" class="w-4 h-4"></i> Example</button>
+      </div>
+
+      <div x-html="stickyOfferHTML"></div>
+    </section>
+
+    <section class="lg:col-span-3 space-y-5">
+      <template x-if="!result">
+        <div class="hc-card p-8 text-center text-ink-soft">
+          <i data-lucide="syringe" class="w-10 h-10 mx-auto text-brand mb-3"></i>
+          <p>Enter your trigger date and dose to estimate when it should clear.</p>
+        </div>
+      </template>
+
+      <template x-if="result">
+        <div class="space-y-5">
+          <div class="hc-disclaimer"><strong>Important:</strong> this is a rough estimate only. How quickly a trigger clears varies a lot from person to person and with the dose. Home tests are not reliable for IVF decisions. Your clinic's blood test (beta hCG) is the only definitive answer, always follow their guidance.</div>
+
+          <div class="hc-card p-6">
+            <div class="text-xs font-semibold text-ink-muted uppercase tracking-[0.08em] mb-1">Trigger likely clears around</div>
+            <div class="font-display text-3xl sm:text-4xl font-semibold text-brand leading-tight" x-text="HCF.fmtDayMonth(result.clearFrom) + ' to ' + HCF.fmtDayMonth(result.clearTo)"></div>
+            <p class="text-sm text-ink-soft mt-2">That is roughly <strong x-text="result.estFrom + ' to ' + result.estTo + ' days'"></strong> after your trigger on <strong x-text="HCF.fmtShort(result.trigger)"></strong>.</p>
+
+            <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Start testing out</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.fmtDayMonth(result.testOutStart)"></div></div>
+              <div class="p-3 rounded-xl bg-accent/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Days since trigger</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="result.dpt < 0 ? '-' : result.dpt"></div></div>
+              <div class="p-3 rounded-xl bg-brand/5"><div class="text-[0.62rem] text-ink-muted uppercase tracking-wide mb-0.5">Approx. dose</div><div class="text-sm font-extrabold text-ink leading-tight" x-text="HCF.num(result.iu) + ' IU'"></div></div>
+            </div>
+
+            <div class="mt-4" x-html="resultPromptHTML"></div>
+          </div>
+
+          <div class="hc-card p-5 sm:p-6">
+            <h3 class="font-semibold mb-5">Your test-out timeline</h3>
+            <div class="hc-timeline">
+              <template x-for="(m, i) in result.milestones" :key="i">
+                <div class="hc-timeline-item" :data-now="m.status === 'now'" :data-done="m.status === 'done'">
+                  <span class="hc-timeline-dot"></span>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-ink-muted uppercase tracking-wide" x-text="m.label"></span>
+                    <span class="text-[0.6rem] px-1.5 py-0.5 rounded font-semibold"
+                          :class="{'bg-accent/15 text-accent-strong': m.status==='done','bg-brand/15 text-brand': m.status==='now','bg-surface-3 text-ink-muted': m.status==='upcoming'}"
+                          x-text="m.status === 'done' ? 'Passed' : (m.status === 'now' ? 'Around now' : 'Ahead')"></span>
+                  </div>
+                  <div class="font-semibold text-ink mt-0.5" x-text="m.title"></div>
+                  <p class="text-sm text-ink-soft mt-0.5" x-text="m.body"></p>
+                </div>
+              </template>
+            </div>
+            <p class="text-xs text-ink-muted mt-4">A line that fades to negative and then comes back stronger over the following days is a more promising sign than the trigger, but only your clinic's beta blood test can confirm a pregnancy.</p>
+          </div>
+
+          <div x-html="comparisonHTML"></div>
+          <div x-html="trustHTML"></div>
+
+          <a href="beta-hcg.html" class="hc-card hc-card-interactive p-5 sm:p-6 group block no-underline">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-start gap-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Next step</div>
+                  <div class="font-semibold text-lg text-ink group-hover:text-brand transition-colors leading-snug">Beta hCG Doubling Calculator</div>
+                  <div class="text-sm text-ink-soft mt-0.5">Got your beta results? Check the doubling time between two values.</div>
+                </div>
+              </div>
+              <i data-lucide="arrow-right" class="w-5 h-5 text-brand group-hover:translate-x-0.5 transition-transform flex-shrink-0"></i>
+            </div>
+          </a>
+
+          <div id="hc-disclaimer"></div>
+        </div>
+      </template>
+    </section>
+  </div>
+</main>
+<div id="hc-footer"></div>
+
+<script src="../assets/js/cycle-data.js"></script>
+<script src="../assets/js/format.js"></script>
+<script src="../assets/js/share.js"></script>
+<script src="../assets/js/affiliates.js"></script>
+<script src="../assets/js/storage.js"></script>
+<script src="../assets/js/save-share.js"></script>
+<script src="../assets/js/common.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+function triggerApp() {
+  function isoDaysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return window.HCF.toISO(d); }
+  const EXAMPLE = { triggerDate: isoDaysAgo(5), dose: '6500', customIU: 5000 };
+  return {
+    inp: { ...EXAMPLE },
+    isExample: true,
+    result: null,
+    get HCF() { return window.HCF; },
+    resultPromptHTML: '', comparisonHTML: '', stickyOfferHTML: '', trustHTML: '',
+
+    init() {
+      const s = window.HCShare.readState(['t', 'd', 'i']);
+      const has = Object.keys(s).length > 0;
+      if (s.t) this.inp.triggerDate = s.t;
+      if (s.d) this.inp.dose = s.d;
+      if (s.i) this.inp.customIU = +s.i;
+      this.isExample = !has;
+      this.calc();
+      this.$watch('inp', () => { this.isExample = false; });
+    },
+
+    loadExample() { this.inp = { ...EXAMPLE }; this.calc(); this.$nextTick(() => { this.isExample = true; }); },
+
+    calc() {
+      const F = window.HCF;
+      const trigger = F.parseISO(this.inp.triggerDate);
+      if (!trigger) { this.result = null; return; }
+      const iu = this.inp.dose === 'custom' ? Math.max(500, Math.min(20000, this.inp.customIU || 5000)) : +this.inp.dose;
+      // Rough rule of thumb: about 1 day per 1,000 IU to become undetectable on a sensitive home test,
+      // with a few days of individual variation. We present a range, never a single day.
+      const estFrom = Math.max(5, Math.round(iu / 1000));
+      const estTo = estFrom + 4;
+      const today = F.today();
+      const dpt = F.diffDays(trigger, today);
+      const testOutStart = F.addDays(trigger, 4);
+      const M = [
+        { label: 'Day 0', lo: 0, hi: 0, title: 'Trigger shot', body: 'hCG is injected to mature and release the eggs ahead of collection or timed intercourse.' },
+        { label: 'Days 1-3', lo: 1, hi: 3, title: 'Trigger at its highest', body: 'A home pregnancy test will most likely be positive from the trigger itself, not a pregnancy.' },
+        { label: 'Day 4 onwards', lo: 4, hi: estFrom - 1, title: 'Start testing out', body: 'Test once a day and watch the line gradually fade as the trigger leaves your system.' },
+        { label: 'Days ' + estFrom + '-' + estTo, lo: estFrom, hi: estTo, title: 'Trigger usually clears', body: 'Around now a home test often turns negative. A line that then comes back stronger is more promising.' },
+        { label: 'Beta blood test', lo: estTo + 1, hi: 99, title: 'Your clinic confirms', body: 'A beta hCG blood test is the only definitive answer. Follow your clinic\'s test date and advice.' }
+      ];
+      M.forEach(m => { m.status = dpt > m.hi ? 'done' : (dpt >= m.lo ? 'now' : 'upcoming'); });
+      this.result = {
+        trigger, iu, dpt, estFrom, estTo,
+        clearFrom: F.addDays(trigger, estFrom), clearTo: F.addDays(trigger, estTo),
+        testOutStart,
+        milestones: M
+      };
+      this.renderAffiliates();
+    },
+
+    renderAffiliates() {
+      const A = window.HCAffiliates; if (!A || !this.result) return;
+      this.resultPromptHTML = A.renderResultPrompt({ icon: 'flower-2', title: 'Testing out? A pack of early tests makes it easier.', sub: 'Sensitive home pregnancy tests', cta: 'See picks', href: '../deals.html#fertility' });
+      this.comparisonHTML = A.renderComparisonTable({ category: 'fertility', title: 'Helpful for your two-week wait', subtitle: 'Hand-picked · not medical advice', limit: 3 });
+      this.stickyOfferHTML = A.renderStickyOffer({ category: 'fertility', eyebrow: 'Two-week wait', headline: 'Early test kits', body: 'For testing out the trigger day by day.', cta: 'See' });
+      this.trustHTML = A.renderTrustStrip();
+    },
+
+    getSnapshot() {
+      const r = this.result, F = window.HCF;
+      return {
+        type: 'trigger-shot',
+        inputs: { ...this.inp },
+        shareParams: { t: this.inp.triggerDate, d: this.inp.dose, i: this.inp.customIU },
+        summary: {
+          calcLabel: 'Trigger Shot Test-Out', icon: 'syringe',
+          headline: F.fmtDayMonth(r.clearFrom) + ' to ' + F.fmtDayMonth(r.clearTo), headlineLabel: 'Trigger likely clears',
+          secondary: r.estFrom + ' to ' + r.estTo + ' days', secondaryLabel: 'After trigger',
+          meta: 'Rough estimate · not medical advice',
+          rows: [
+            { label: 'Start testing out', value: F.fmtDayMonth(r.testOutStart) },
+            { label: 'Approx. dose', value: F.num(r.iu) + ' IU' }
+          ]
+        }
+      };
+    },
+    save() { window.HCSaveShare.openSave(this.getSnapshot()); },
+    share() { window.HCSaveShare.openShare(this.getSnapshot()); }
+  };
+}
+</script>
+</body>
+</html>
