@@ -39,7 +39,6 @@
     },
     { label: 'Saved',     href: ROOT + 'saved.html' },
     { label: 'Guides',    href: ROOT + 'blog/index.html' },
-    { label: 'Essentials',href: ROOT + 'deals.html' },
     { label: 'About',     href: ROOT + 'about.html' },
     { label: 'Contact',   href: ROOT + 'contact.html' }
   ];
@@ -126,7 +125,6 @@
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}blog/index.html">Guides</a></li>
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}faq.html">FAQ</a></li>
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}glossary.html">Glossary</a></li>
-          <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}deals.html">Essentials</a></li>
           <li><a class="text-ink-soft hover:text-brand transition-colors" href="${ROOT}saved.html">Saved</a></li>
         </ul>
       </div>
@@ -144,7 +142,7 @@
     </div>
     <div class="mt-12 pt-8 border-t border-border text-xs text-ink-muted space-y-3 leading-relaxed">
       <p><strong class="text-ink-soft">Important, not medical advice:</strong> HerCycleCalc's calculators and content are for general information and educational purposes only. They are estimates and are not a substitute for professional medical advice, diagnosis or treatment. Every pregnancy and cycle is different. Always speak to your GP, midwife or a qualified healthcare professional about your individual circumstances. In the UK, see <a href="https://www.nhs.uk/pregnancy/" rel="noopener" target="_blank" class="underline hover:text-brand transition-colors">NHS Pregnancy</a> for trusted guidance.</p>
-      <p><strong class="text-ink-soft">Affiliate disclosure:</strong> Some links on this site (including those marked "Essentials" or "See picks") are affiliate links. If you click through and buy, HerCycleCalc may receive a small commission at no extra cost to you. This never affects what we choose to feature.</p>
+      <p><strong class="text-ink-soft">Affiliate disclosure:</strong> Some links on this site may be affiliate links. If you click through and buy, HerCycleCalc may receive a small commission at no extra cost to you. This never affects what we choose to feature.</p>
       <p>&copy; ${yr} Croft &amp; Hugh Digital LTD · Registered in England &amp; Wales · Company No. 17207269 · Registered office: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ · Contact: <a href="mailto:hello@crofthughdigital.co.uk" class="underline hover:text-brand transition-colors">Hello@crofthughdigital.co.uk</a></p>
     </div>
   </div>

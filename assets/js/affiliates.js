@@ -12,6 +12,14 @@
  * ============================================================ */
 (function () {
   /* ============================================================
+   * GLOBAL KILL-SWITCH
+   * While no real affiliate partners are live, all sponsored widgets
+   * (result prompts, comparison tables, sticky offers, sponsored links)
+   * are hidden site-wide. Flip ENABLED to true to bring them all back.
+   * ============================================================ */
+  const ENABLED = false;
+
+  /* ============================================================
    * OFFER REGISTRY, PLACEHOLDER DATA only.
    * Generic, non-branded slots reserved for real affiliate partners.
    * No brand impersonation risk; swap in real partners when approved.
@@ -108,6 +116,7 @@
   function escape(s) { return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
   function renderResultPrompt({ icon = 'sparkles', title, sub, cta = 'See picks', href }) {
+    if (!ENABLED) return '';
     // Icons are injected dynamically, so schedule a Lucide re-render once the DOM updates.
     if (typeof requestAnimationFrame === 'function') {
       requestAnimationFrame(() => { if (window.HC && window.HC.refreshIcons) window.HC.refreshIcons(); });
@@ -124,6 +133,7 @@
   }
 
   function renderComparisonTable({ category, title = 'Helpful picks', subtitle = '', limit = 3 }) {
+    if (!ENABLED) return '';
     const ids = (CATEGORIES[category] || []).slice(0, limit);
     if (!ids.length) return '';
     const rows = ids.map(id => {
@@ -165,18 +175,21 @@
   }
 
   function inlineLink(category, anchorText) {
+    if (!ENABLED) return escape(anchorText);
     const id = (CATEGORIES[category] || [])[0];
     const o = OFFERS[id]; if (!o) return escape(anchorText);
     return `<a href="${escape(o.url)}" rel="nofollow sponsored" class="hc-inline-link">${escape(anchorText)}</a>`;
   }
 
   function rowLink(category, anchorText) {
+    if (!ENABLED) return '';
     const id = (CATEGORIES[category] || [])[0];
     const o = OFFERS[id]; if (!o) return '';
     return `<a href="${escape(o.url)}" rel="nofollow sponsored" class="hc-row-link">${escape(anchorText)} →</a>`;
   }
 
   function renderStickyOffer({ category, eyebrow, headline, body, cta = 'See pick' }) {
+    if (!ENABLED) return '';
     const id = (CATEGORIES[category] || [])[0];
     const o = OFFERS[id]; if (!o) return '';
     return `
