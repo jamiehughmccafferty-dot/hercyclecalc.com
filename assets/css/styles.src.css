@@ -822,13 +822,6 @@
   .hc-toc-link:hover { color: rgb(var(--ink)); background: rgb(var(--surface-3)); }
   .hc-toc-link[data-active="true"] { color: rgb(var(--brand)); font-weight: 600; background: rgb(var(--brand) / 0.05); }
 
-  /* ===== Horizontal scroll rail (watch/meet strip) ===== */
-  .hc-rail { scrollbar-width: thin; scrollbar-color: rgb(var(--border-strong)) transparent; }
-  .hc-rail::-webkit-scrollbar { height: 6px; }
-  .hc-rail::-webkit-scrollbar-track { background: transparent; }
-  .hc-rail::-webkit-scrollbar-thumb { background: rgb(var(--border-strong)); border-radius: 3px; }
-  .hc-rail::-webkit-scrollbar-thumb:hover { background: rgb(var(--ink-muted)); }
-
   /* ===== Timeline (pregnancy roadmap / shopping) ===== */
   .hc-timeline { position: relative; padding-left: 1.75rem; }
   .hc-timeline::before {
