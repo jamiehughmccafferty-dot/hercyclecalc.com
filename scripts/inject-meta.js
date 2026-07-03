@@ -28,8 +28,8 @@ const FILES = [
   {
     file: 'about.html',
     ogUrl: `${SITE}/about`,
-    ogTitle: 'About HerCycleCalc | editorial standards & disclosure',
-    ogDescription: 'HerCycleCalc is operated by Croft & Hugh Digital LTD. Our editorial standards, medical disclaimer and affiliate disclosure, explained plainly.'
+    ogTitle: 'About Kelli, the founder of HerCycleCalc',
+    ogDescription: 'Hi, I\'m Kelli. After 5 years of infertility, 4 miscarriages and a failed IVF cycle, I built HerCycleCalc to make understanding your cycle and trying to conceive a little easier. This is my story.'
   },
   {
     file: 'contact.html',
