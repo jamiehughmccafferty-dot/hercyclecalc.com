@@ -83,7 +83,7 @@ const FILES = [
     file: 'cookies.html',
     ogUrl: `${SITE}/cookies`,
     ogTitle: 'Cookie Policy | HerCycleCalc',
-    ogDescription: 'HerCycleCalc uses no tracking or advertising cookies. We use a little on-device storage for saved calculations and your theme.'
+    ogDescription: 'HerCycleCalc uses no tracking or advertising cookies. We use a little on-device storage for saved calculations, plus cookieless analytics.'
   },
   {
     file: 'terms.html',

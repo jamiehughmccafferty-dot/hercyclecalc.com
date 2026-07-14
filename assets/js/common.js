@@ -1,4 +1,4 @@
-/* HerCycleCalc, shared header, footer, dark mode, helpers */
+/* HerCycleCalc, shared header, footer, helpers */
 (function () {
   const ROOT = (function findRoot() {
     const path = window.location.pathname.replace(/\\/g, '/');
