@@ -7,8 +7,9 @@
     "build:css": "tailwindcss -i ./assets/css/styles.src.css -o ./assets/css/styles.css --minify",
     "hash:css": "node scripts/hash-css.js",
     "build:og": "node scripts/build-og.js",
-    "build:prod": "npm run build:css && npm run hash:css",
-    "build": "npm run build:css && npm run build:og",
+    "inject:analytics": "node scripts/inject-analytics.js",
+    "build:prod": "npm run build:css && npm run hash:css && npm run inject:analytics",
+    "build": "npm run build:css && npm run build:og && npm run inject:analytics",
     "watch:css": "tailwindcss -i ./assets/css/styles.src.css -o ./assets/css/styles.css --watch",
     "serve": "http-server -p 8000 -c-1 --cors",
     "dev": "npm run watch:css"
@@ -18,5 +19,8 @@
     "http-server": "^14.1.1",
     "puppeteer": "^25.1.0",
     "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
