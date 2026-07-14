@@ -205,6 +205,18 @@
     document.head.appendChild(s);
   })();
 
+  (function loadVercelAnalytics() {
+    // Vercel Web Analytics, cookieless and privacy-friendly. Served from the
+    // domain root on Vercel; 404s harmlessly in local dev.
+    if (document.querySelector('script[data-hc-va]')) return;
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    const s = document.createElement('script');
+    s.src = '/_vercel/insights/script.js';
+    s.defer = true;
+    s.dataset.hcVa = '1';
+    document.head.appendChild(s);
+  })();
+
   function refreshIcons(scope) {
     if (window.lucide && window.lucide.createIcons) {
       try { window.lucide.createIcons(scope ? { context: scope } : undefined); } catch {}
